@@ -29,6 +29,10 @@ The compiler is mature. The programmer doesn't need to be. However, buggy submis
 * **The Diagnostics:** If your code fails, you will receive subtle hints based on our instincts to help you refactor. Fix it, rebuild it, and resubmit.
 * **The Setup:** We highly recommend using a modern IDE like **CLion** to optimize your local development speed. Take it or leave it. Just a style choice.
 
+> Critical note: I live on the Indian time zone so please do not call me on mid-night, i will give messages if i had any work(Eg: "Guys, its 9:00 PM out for me here, so gonna catch some zzz's! bye") and you can too! Made in 🧡🧡🧡
+                                                                                                       🤍💙🤍
+                                                                                                       💚💚💚
+
 *Your presence is precious to the army. Let's make systems programming fun again. Ciao, Slay Queen.* 💅
 
 ---
