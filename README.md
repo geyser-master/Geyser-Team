@@ -25,7 +25,7 @@ Our core philosophy is simple: **Strict compiler. Chaotic programmer.** 🗿 The
 
 The compiler is mature. The programmer doesn't need to be. However, buggy submissions or code that violates the spec will be chewed up by the cat corpo—*cough*, completely rejected by our pipeline. 
 
-* **The Pipeline:** All submissions are heavily stress-tested by our automated pipeline; our Chief QA Tester (**Dada!**) acting as the customer giving critics for bugs and UB to guarantee zero memory leaks and absolute build integrity.
+* **The Pipeline:** All submissions are heavily stress-tested by our automated pipeline; our Chief QA Customer (**Dada!**) acting as the customer giving critics for bugs and UB to guarantee zero memory leaks and absolute build integrity.
 * **The Diagnostics:** If your code fails, you will receive subtle hints based on our instincts to help you refactor. Fix it, rebuild it, and resubmit.
 * **The Setup:** We highly recommend using a modern IDE like **CLion** to optimize your local development speed. Take it or leave it. Just a style choice.
 
