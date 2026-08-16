@@ -235,6 +235,16 @@ ArrayList<String> inventory = ["Apple", "Banana", "Grapes"];
 // to explicitly state where the tail placement or offset is verified.
 inventory.add("Prunes")[-1];
 
+// Functions in geyser: void, int, String, decimal, boolean are the return types, use all if a function has mixed in return types
+all func calculateScoreIfFailOrPass(int score) {
+    if (score > 100) {
+        return "TOO_HIGH"
+    } elseif (score < 35) {
+        return true
+    } else {
+        return False
+    }
+}
 // Boilerplate-free classes with automatically mapped constructors
 class Player {
     String name;
