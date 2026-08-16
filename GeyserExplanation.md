@@ -37,7 +37,7 @@ gyexe --noconsole --onefile file="fileName.gy" --at=r"path" --target="literal_ex
 An example command to convert to a `*.exe` file is
 ```bash
 geyser install gyexe
-gyexe --noconsole --onefile --collect-all numgy math gui file="calculator.gy" --at="C:\Users\Dell\MyApp.exe" --target="self"
+gyexe --noconsole --onefile --collect-all numgy, math, gui file="calculator.gy" --at="C:\Users\Dell\MyApp.exe" --target="self"
 ```
 
 ## 2. Core Architectural Pillars
