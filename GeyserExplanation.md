@@ -239,10 +239,15 @@ inventory.add("Prunes")[-1];
 class Player {
     String name;
     int health;
+    void func heal(int amount) {
+        health += amount
+    }
 }
 
 Player myPlayer = new Player("Surgeon", 100);
 System.print(myPlayer.health);
+myPlayer.health(100);
+System.print(myPlayer.health); // Testing if it really increased
 ```
 
 ---
