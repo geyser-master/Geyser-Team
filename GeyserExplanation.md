@@ -25,7 +25,7 @@ Geyser has two options:
 We do this by geyser's `gyexe`(need to be geyser installed via `geyser install gyexe)
 And to convert it, run
 ```bash
-gyexe --noconsole --onefile file="fileName.gy" --at=r"path" --target="literal_exact_processor_name_with_the_ghz"
+gyexe --noconsole --onefile file="fileName.gy" --at=r"path" --target="literal_exact_processor_name"
 ```
 *--noconsole/--console:* Optional
 *--collect-all modules_by_geyser_install:* Mandatory(Only if your project contains modules by geyser install)
@@ -37,7 +37,7 @@ gyexe --noconsole --onefile file="fileName.gy" --at=r"path" --target="literal_ex
 An example command to convert to a `*.exe` file is
 ```bash
 geyser install gyexe
-gyexe --noconsole --onefile --collect-all numpy math gui file="calculator.gy" --at="C:\Users\Dell\MyApp.exe" --target="intelr_coretm_i58365U_CPU@1.60ghz"
+gyexe --noconsole --onefile --collect-all numpy math gui file="calculator.gy" --at="C:\Users\Dell\MyApp.exe" --target="intelr_coretm_i58365U"
 ```
 
 ## 2. Core Architectural Pillars
