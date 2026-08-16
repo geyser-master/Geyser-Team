@@ -95,6 +95,7 @@ Variables are raw physical memory slots. They never compile into heavy, tracking
 * `decimal` — High-precision fractional numbers for physics and fluid simulations.
 * `String` — Strict, flat text character sequences.
 * `boolean` — Evaluation literals (`true` or `false`).
+* `Tuple` — A static tuple, Immutable, can hold anything mixed
 * `const` modifier — Makes a variable permanently immutable after initialization.
 * `cache` — Allows a variable's value to be retained in the CPU data cache when possible; the cache is invalidated when the value changes.
 * `uncache` — Makes a variable's cache cleared in the D-Cache
@@ -156,6 +157,9 @@ System.print(status);
 
 // Double quotes for Strings, single quotes for clean single-byte character literals
 String username = Prompt("Enter surgeon name: ").toLowerCase().replaceAll(' ', '');
+
+// Tuples are default and allowed
+String password = Prompt("Enter secure password: ", maskWith='*', ignore=(' ', '\r', '\n'))
 ```
 
 ### Strict Mathematical Rules
