@@ -138,6 +138,12 @@ int i = 0; // Index
 // Thats it! Comments does nothing but help the programmer
 ```
 
+### System exits
+```java
+import geyser.lang.System;
+System.exitWithReturnCode(1);
+```
+
 ### Code Formatting
 ```java
 // Semicolons at the end of a statement are strictly mandatory
@@ -300,28 +306,32 @@ Geyser blocks bugs before they can ever execute on hardware by throwing descript
 
 ### Errors
 * **`SyntaxError`** — Disrespecting language grammar (e.g., leaving out a mandatory trailing semicolon `;` or attempting an unauthorized wildcard `*` import), Sometimes these are too literal.
-  * *Output:* `SyntaxError: unterminated string literal but reached EOF`
+  *Output:* `SyntaxError: unterminated string literal but reached EOF`
 * **`ConditionalError`** — Attempting to evaluate a raw condition without an explicit comparison check.
-  * *Output:* `ConditionalError: cannot reference true or false to variable with no true check or false check`
+  *Output:* `ConditionalError: cannot reference true or false to variable with no true check or false check`
 * **`NameError`** — referencing an unknown identifier, using a variable before it exists, or trying to access a class layout without instantiating it.
-  * *Output:* `NameError: cannot access class 'Player' without creating it`
+  *Output:* `NameError: cannot access class 'Player' without creating it`
 * **`ArgumentError`** — Violating arguments rules where you dont pass a critical argument.
-  * *Output:* `ArgumentError: expected argument got none`
+  *Output:* `ArgumentError: expected argument got none`
 * **`AssignmentError`** — Collision violations (e.g., trying to duplicate a variable declaration inside the same scope boundary).
-  * *Output:* `AssignmentError: 
+  *Output:* `AssignmentError: cannot reassign variable 'currentVelocity'`
+* **`AttributeError`** — Unknown attributes
+  *Output:* `AttributeError: module 'System' does not have attribute 'chickenGravy'`
 * **`TypeError`** — Attempting to push mismatched data types into an explicit hardware slot.
-  * *Output:* `TypeError: expected value 'int' got 'decimal' in type 'int'
+  *Output:* `TypeError: expected value 'int' got 'decimal' in type 'int'
 * **`ValueError`** — Encountering an unbound data transformation or failing to secure a raw layout slot for conversion.
-  * *Output:* `ValueError: expected variable to store output`
+  *Output:* `ValueError: expected variable to store output`
 * **`MathError`** — Emitted when a mathematical expression is unresolvable.
-  * *Output:* `MathError: invalid operation '0 ** 0'`
+  *Output:* `MathError: invalid operation '0 ** 0'`
 * **`IndexError`** — Index violation(e.g., trying to read over the index limit).
 * **`TaskError`** — A floating builtins or smth else without giving a task(Eg: 'System' without any runnable attribute or task to do)
-  * *Output:* `TaskError: expected task from module 'System' got floating module  `
+  *Output:* `TaskError: expected task from module 'System' got floating module  `
 * **`ModuleError`** — Unknown module name
   *Output:* `ModuleError: no module named 'poopington'`
 * **`FormatError`** — Occurs when the string formatting is logically impossible
   *Output:* `FormatError: combination of 'f' and 'r' is invalid`
+* **`ExitError`** — Commonly a invalid exit code
+  *Output:* `ExitError: exit code 'someSauce' is invalid`
 
 ### Warnings
 * **`SyntaxWarning`** — Things that might break in the future or violate syntax in the future or a warning that code might break in runtime
