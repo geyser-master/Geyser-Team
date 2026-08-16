@@ -248,7 +248,7 @@ all func calculateScoreIfFailOrPass(int score) {
     } elseif (score < 35) {
         return true
     } else {
-        return False
+        return false
     }
 }
 // Boilerplate-free classes with automatically mapped constructors
@@ -262,7 +262,7 @@ class Player {
 
 Player myPlayer = new Player("Surgeon", 100);
 System.print(myPlayer.health);
-myPlayer.health(100);
+myPlayer.heal(100);
 System.print(myPlayer.health); // Testing if it really increased
 ```
 
