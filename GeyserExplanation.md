@@ -257,6 +257,8 @@ These are the foundational standard library namespaces hardcoded into the initia
   Meet the random generator, generated randomness via `Random.attribute()`
 * **`geyser.lang.Prompt`**
   Grabs explicit user inputs via the terminal console layer directly into a mutating string execution block.
+* **`geyser.lang.ArrayList`**
+  Dynamic arrays with a strict `<type>` rule via `ArrayList<type> name = [];`
 * **`geyser.lang.string.concatenate`**
   The explicit string manipulator that safely joins two flat text character sequences into a single container without dynamic memory guessing.
 * **`geyser.lang.Time`**
