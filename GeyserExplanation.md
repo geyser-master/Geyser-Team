@@ -283,7 +283,7 @@ Geyser blocks bugs before they can ever execute on hardware by throwing descript
 
 ### Errors
 * **`SyntaxError`** — Disrespecting language grammar (e.g., leaving out a mandatory trailing semicolon `;` or attempting an unauthorized wildcard `*` import), Sometimes these are too literal.
-  * *Output:* `SyntaxError: unexpected token '*'`
+  * *Output:* `SyntaxError: unterminated string literal but reached EOF`
 * **`ConditionalError`** — Attempting to evaluate a raw condition without an explicit comparison check.
   * *Output:* `ConditionalError: cannot reference true or false to variable with no true check or false check`
 * **`NameError`** — referencing an unknown identifier, using a variable before it exists, or trying to access a class layout without instantiating it.
@@ -291,10 +291,13 @@ Geyser blocks bugs before they can ever execute on hardware by throwing descript
 * **`ArgumentError`** — Violating arguments rules where you dont pass a critical argument.
   * *Output:* `ArgumentError: expected argument got none`
 * **`AssignmentError`** — Collision violations (e.g., trying to duplicate a variable declaration inside the same scope boundary).
+  * *Output:* `AssignmentError: 
 * **`TypeError`** — Attempting to push mismatched data types into an explicit hardware slot.
+  * *Output:* `TypeError: expected value 'int' got 'decimal' in type 'int'
 * **`ValueError`** — Encountering an unbound data transformation or failing to secure a raw layout slot for conversion.
-* **`MathError`** — Emitted when a mathematical expression lacks a container to hold its data.
-  * *Output:* `MathError: expected variable to store output`
+  * *Output:* `ValueError: expected variable to store output`
+* **`MathError`** — Emitted when a mathematical expression is unresolvable.
+  * *Output:* `MathError: invalid operation '0 ** 0'`
 * **`IndexError`** — Index violation(e.g., trying to read over the index limit).
 * **`TaskError`** — A floating builtins or smth else without giving a task(Eg: 'System' without any runnable attribute or task to do)
   * *Output:* `TaskError: expected task from module 'System' got floating module  `
