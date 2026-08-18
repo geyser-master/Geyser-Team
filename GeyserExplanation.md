@@ -85,6 +85,27 @@ Variable access and lifecycle visibility are determined by a simple, non-negotia
 1. **`global` keyword:** Any code, nested function, or separate class anywhere in the application can read or write to it.
 2. **No `global` keyword:** The variable is strictly locked to its immediate outer scope block. Inner functions and nested classes are completely barred from accessing it.
 
+Example:-
+```java
+// WORKS
+global int x = 10;
+int func change() {
+    x += 1;
+}
+
+// unnesecary
+global int x = 10;
+if (x > 10) {
+    x -= 1;
+}
+
+// NOT WORKS
+int x = 10;
+int func add() {
+    x += 10; // DOES NOT WORK!!! "NameError: undefined name 'x'"
+}
+```
+
 ---
 
 ## 3. Core Data Types
