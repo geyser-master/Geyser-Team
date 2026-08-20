@@ -191,11 +191,10 @@ String password = Prompt("Enter secure password: ", maskWith='*', ignore=(' ', '
 
 ### Strict Mathematical Rules
 1. Additions cannot be loosely calculated without a dedicated memory container slot to receive the output.
-2. An existing, declared variable name cannot be re-declared to perform math.
+2. An existing, declared variable name cannot be re-declared.
 3. Modification of an existing slot must use explicit compound mutation operators (`+=`, `-=`, `*=`, `/=`) or reassignment without declaring type again.
 4. Slot type must match the value else if was assigning(AssignmentError: mismatching type between slot type and value) else if it was already declared and it came from some sort of addition or math stuff(TypeError: mismatched types between slot type and value)
-5. Division divisor is strictly a int, either `int / int` or `decimal / int`, Same for multiplication multiplier
-6. Truncation in values are prevented and are banned
+5. Truncation in values are prevented and are banned
 
 ```java
 int patientPulse = 70;
@@ -206,6 +205,7 @@ patientPulse += 5; // Valid: mutates the hardware slot directly
 1. Index cannot be over the string/list .etc range
 2. Index requires a strict square brackets formatting
 3. Index is just the standard `[start:stop:step]` rules(also it also has negative indexing, same rules, starts at 0 in positive, starts at -1 in negative)
+4. Index guarantees it does not unexpectedly give up just because the output is *bad* to it no matter what(Unlike Python)
 
 ```java
 String text = "Motherfather";
