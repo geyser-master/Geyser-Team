@@ -142,6 +142,31 @@ import geyser.lang.System;
 System.exitWithReturnCode(1);
 ```
 
+### Introducing GUI
+Introducing GUI, this is Geyser’s native high-performance windowing and rendering interface. Instead of forcing developers to struggle with over 1,000 lines of complex driver boilerplate just to open a blank screen, Geyser completely handles low-level graphics allocations behind the scenes. By wrapping native cross-platform hooks into clean, explicit commands, it allows developers to directly harness discrete GPU multi-threading while maintaining total code clarity.
+
+```java
+import geyser.gui.GUI;
+
+// Explicitly set the render tool to 'vulkan'
+GUI.useRenderTool("vulkan");
+
+// Check if a GPU exists
+if ((GUI.findGPU) == 0) {
+    GUI.initGPU(amount="max"); // We found one, lets initialize all gpus to be used
+} else {
+    GUI.initIGPU(); // Sadly we have to use an Intregrated GPU
+}
+
+// Runs a while loop as long as no 'window_should_close' signal via clicking the 'X' or terminating the task comes
+while (not GUI.WINDOW_SHOULD_CLOSE) {
+    GUI.renderTriangle(size=(10, 10), color="#FF0000", at=(10, 10), rotationAxis=0); // Setting the location, usually its by the shape center point
+}
+
+// Destroy the GUI and cleanup
+GUI.destroy();
+```
+
 ### Code Formatting
 ```java
 // Semicolons at the end of a statement are strictly mandatory
