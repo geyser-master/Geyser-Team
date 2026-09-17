@@ -1,6 +1,6 @@
 # The Geyser Programming Language (.gy)
 
-> *(Important copyright notes: This project incorporates components from LLVM (targets/x86_64-windows/...), licensed under the Apache License 2.0 with LLVM Exceptions. See targets/x86_64-windows/include/llvm/Support/LICENSE.TXT for full license text. Original source: https://llvm.org)
+> *(Important copyright notes: This project incorporates components from LLVM (targets/x86_64-windows/...), licensed under the Apache License 2.0 with LLVM Exceptions. See targets/x86_64-windows/include/llvm/Support/LICENSE.TXT for full license text. Original source: https://llvm.org)*
 
 **Core Vision:** A strict, explicit, highly predictable, and blistering fast alternative to C++.
 
