@@ -81,6 +81,8 @@ To protect tight-loop latency, Geyser enforces a default variable initializing-a
 * **Loops are Cached:** Loop execution blocks and branching mechanisms are held natively in the CPU Instruction Cache (I-Cache) to repeat at maximum processor clock speeds.
 * **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, it is retained in the D-Cache, and the program will still read from the cache unless manual `uncache variable;` is invoked, we are not holding your hand.
 
+These are not gurranted and usually by an request where t can be rejected by the CPU if its busy doing other heavy-tasks
+
 ---
 ## 3. Core Data Types
 
