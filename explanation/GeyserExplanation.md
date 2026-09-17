@@ -24,7 +24,7 @@ Geyser has two options:
 We do this by geyser's `gyexe`(need to be geyser installed via `geyser install gyexe)
 And to convert it, run
 ```bash
-gyexe --noconsole --onefile --file="path\to\your\fileName.gy" --at=r"path" --target="architecture"
+gyexe --noconsole --onefile --file="path\to\your\fileName.gy" --at=r"path" --target="architecture" # For amateurs reading this: Stop thinking this as 'PyInstaller' for the sake of my sanity
 ```
 *--noconsole/--console:* Optional  
 *--collect-all modules_by_geyser_install:* Recommended(Only if your project contains modules by geyser install)  
