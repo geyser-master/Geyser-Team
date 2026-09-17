@@ -49,7 +49,7 @@ Geyser outlaws compiler guesswork. Every data type, scope boundary, statement te
 
 If a programmer cannot handle explicitness, they can go back to Python.
 
-### Features outside string literals to change things
+### Features outside string literals to change things(Usually for printing and stuff)
 * **`r`**  
   Treats the string everything as literal
 * **`iq`**  
@@ -73,7 +73,7 @@ If a programmer cannot handle explicitness, they can go back to Python.
 ### The "Yeet the GC" Memory Strategy
 The Garbage Collector is permanently banished to eliminate background lag spikes and unpredictable stuttering frames. Geyser utilizes **Automatic Scope-Based Cleanup**:
 * Local data sits flat inside memory stack slots.
-* The exact millisecond code execution exits a block and encounters a closing curly brace `}`, the compiler automatically inserts an instruction to destroy those memory slots.
+* When code execution exits a block and encounters a closing curly brace `}`, the compiler automatically inserts an instruction to destroy those memory slots *only* if its new and belongs to its parent, not *anything* and 'exact millisecond'.
 * Constant top-level objects stay active in the root file scope until the execution terminates, at which point the Operating System reclaims the entire layout at EOF (End of File).
 
 ### Hardware Cache Separation
@@ -171,7 +171,6 @@ System.print("\033[38;2;255;255;0mHello World\033[0m\n");
 ```
 
 ### Strict Mathematical Rules
-1. Math cannot be loosely calculated without a memory container slot to receive the output.
 2. An existing, declared variable name cannot be re-declared.
 3. Modification of an existing slot must use explicit compound mutation operators (`+=`, `-=`, `*=`, `/=` etc.), reassignment without declaring type again or reassignment with math operators etc..
 4. Slot type must match the value else (TypeError: mismatched types between slot type and value)
@@ -183,7 +182,7 @@ patientPulse += 5; // Valid: mutates the hardware slot directly
 
 int patientHB = 80 + 10; // Also valid: Constant folding handles this at build-time with zero runtime penalty
 
-10 + 10; // Invalid
+10 + 10; // Quietly gets optimized
 ```
 
 ### Index
@@ -244,8 +243,8 @@ List<mutable, resizable> inventory = [];
 
 // EXPLICIT INDEX REQUIREMENT RULE:
 // If a list already contains elements, adding an item requires an index target parameter
-// to explicitly state where the tail placement or offset is verified. The list must be mutable and resizable in order to add or pop else (SyntaxError: cannot add/remove item in immutable/resizable list). If missing the index brackets entirely, the compiler throws an error instantly.
-inventory.add("Prunes")[-1];
+// to explicitly state where the tail placement or offset is verified. The list must be mutable and resizable in order to add or pop else (SyntaxError: cannot add/remove item in immutable/resizable list). If missing the 'at' argument, the compiler throws an error instantly.
+inventory.add("Prunes", at=(-1)); // Added the '()' so the = and - don't get confused and the () evaluates first
 
 // Functions in geyser: void, int, String, decimal, boolean are the return types, use all if a function has mixed in return types
 all func calculateScoreIfFailOrPass(int score) {
