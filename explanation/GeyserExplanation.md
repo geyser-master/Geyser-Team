@@ -1,5 +1,7 @@
 # The Geyser Programming Language (.gy)
 
+> *(Important copyright notes: This project incorporates components from LLVM (targets/x86_64-windows/...), licensed under the Apache License 2.0 with LLVM Exceptions. See targets/x86_64-windows/include/llvm/Support/LICENSE.TXT for full license text. Original source: https://llvm.org)
+
 **Core Vision:** A strict, explicit, highly predictable, and blistering fast alternative to C++.
 
 Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed with a modern, non-boilerplate layout.
@@ -75,7 +77,7 @@ The Garbage Collector is permanently banished to eliminate background lag spikes
 * Constant top-level objects stay active in the root file scope until the execution terminates, at which point the Operating System reclaims the entire layout at EOF (End of File).
 
 ### Hardware Cache Separation
-To protect tight-loop latency, Geyser enforces a strict division at the hardware processor layer:
+To protect tight-loop latency, Geyser enforces a default variable initializing-after division at the hardware processor layer:
 * **Loops are Cached:** Loop execution blocks and branching mechanisms are held natively in the CPU Instruction Cache (I-Cache) to repeat at maximum processor clock speeds.
 * **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, it is retained in the D-Cache until modified, at which point the cache is cleared and remade unless manual `uncache variable;` is invoked.
 
@@ -107,7 +109,7 @@ cache x; // Recaches x with a fresh copy
 The root of a `.gy` file *is* the main execution area. There are no useless class wrappers or mandatory `main` methods required just to say hello. Extra functions and classes simply create explicit inner scopes when called.
 
 ### Module Import Tools & Explicit Options
-Geyser mades that **Wildcard imports (e.g., `import package.*;`) are strictly banned.** This prevents namespace pollution, guarantees instant compile times, and ensures no hidden names are snuck into your file scope.
+Geyser mades that **Wildcard imports (e.g., `import package.*;`) are strictly banned.** This prevents namespace pollution, and ensures no hidden names are snuck into your file scope.
 
 ### The Dictionary
 ```java
