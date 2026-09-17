@@ -81,12 +81,12 @@ To protect tight-loop latency, Geyser enforces a default variable initializing-a
 * **Loops are Cached:** Loop execution blocks and branching mechanisms are held natively in the CPU Instruction Cache (I-Cache) to repeat at maximum processor clock speeds.
 * **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, it is retained in the D-Cache, and the program will still read from the cache unless manual `uncache variable;` is invoked, we are not holding your hand.
 
-These are not gurranted and usually by an request where t can be rejected by the CPU if its busy doing other heavy-tasks
+These are not gurranted and usually by an request where it can be rejected by the CPU if its busy doing other heavy-tasks
 
 ---
 ## 3. Core Data Types
 
-Variables are raw physical memory slots. They never compile into heavy, tracking object layers or dynamic wrappers. Once assigned, a variable remains that type permanently.
+Variables are raw physical memory slots. They never compile into heavy, tracking object layers or dynamic wrappers. Once assigned, a variable remains that type permanently, variables are arranged in a linear-array commonly first in the RAM default, so the CPU can assume that the program might need the next few of the slots and keep it in the fast cache-line.
 
 * `unsigned` — Makes the target binary value unsigned
 * `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32, int1024), can go up to much as you want, just... i hope you have that much memory if you are allocating a lot).
