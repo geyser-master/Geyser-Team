@@ -79,7 +79,7 @@ The Garbage Collector is permanently banished to eliminate background lag spikes
 ### Hardware Cache Separation
 To protect tight-loop latency, Geyser enforces a default variable initializing-after division at the hardware processor layer:
 * **Loops are Cached:** Loop execution blocks and branching mechanisms are held natively in the CPU Instruction Cache (I-Cache) to repeat at maximum processor clock speeds.
-* **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, it is retained in the D-Cache until modified, at which point we are not giving you a hand unless manual `uncache variable;` is invoked.
+* **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, it is retained in the D-Cache, and the program will still read from the cache unless manual `uncache variable;` is invoked, we are not holding your hand.
 
 ---
 ## 3. Core Data Types
