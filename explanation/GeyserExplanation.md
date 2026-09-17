@@ -24,7 +24,7 @@ Geyser has two options:
 We do this by geyser's `gyexe`(need to be geyser installed via `geyser install gyexe)
 And to convert it, run
 ```bash
-gyexe --noconsole --onefile --file="path\to\your\fileName.gy" --at=r"path" --target="architecture" # For amateurs reading this: Stop thinking this as 'PyInstaller' for the sake of my sanity
+gybuild build "path/to/your/file.gy" --output "path/to/your/file.exe" --architecture architecture --optimize=O_plus_number_from_0_to_3
 ```
 *--noconsole/--console:* Optional  
 *--collect-all modules_by_geyser_install:* Recommended(Only if your project contains modules by geyser install)  
@@ -35,8 +35,8 @@ gyexe --noconsole --onefile --file="path\to\your\fileName.gy" --at=r"path" --tar
 
 An example command to convert to a `*.exe`(win) file is
 ```bash
-geyser install gyexe
-gyexe --noconsole --onefile --collect-all math, gui --file="C:\Users\Dell\Geyser\projects\calculator.gy" --at="C:\Users\Dell\MyApp.exe" --target="arm64"
+geyser install gybuild
+gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/game.exe" --architecture arm64 --optimize=O0
 ```
 
 The path could significantly vary based on the hardware's OS.
