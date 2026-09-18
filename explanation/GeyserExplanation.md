@@ -45,7 +45,7 @@ The path could significantly vary based on the hardware's OS.
 ## 2. Core Architectural Pillars
 
 ### Explicit over Implicit (No Guessing Games)
-Geyser outlaws compiler guesswork. Every data type, scope boundary, statement terminator, and logical evaluation must be completely explicit. If the code contains ambiguity, the compiler halts instantly at build time. 
+Geyser outlaws compiler guesswork. Every data type, scope boundary, statement terminator, and logical evaluation must be completely explicit. If the code breaks geyser rules or contains ambiguity, the compiler halts instantly at build time. 
 
 If a programmer cannot handle explicitness, they can go back to Python.
 
