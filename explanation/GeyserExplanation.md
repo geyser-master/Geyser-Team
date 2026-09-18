@@ -73,8 +73,17 @@ If a programmer cannot handle explicitness, they can go back to Python.
 ### The "Yeet the GC" Memory Strategy
 The Garbage Collector is permanently banished to eliminate background lag spikes and unpredictable stuttering frames. Geyser utilizes **Automatic Scope-Based Cleanup**:
 * Local data sits flat inside memory stack slots.
-* When code execution exits a block and encounters a closing curly brace `}`, the compiler automatically inserts an instruction to destroy those memory slots *only* if its new and belongs to its parent, not *anything* and 'exact millisecond'.
 * Constant top-level objects stay active in the root file scope until the execution terminates, at which point the Operating System reclaims the entire layout at EOF (End of File).
+
+### Introducing 'variable deletion'
+We are introducing manual 'variable deletion' ability, the use of it is to help clearing data in functions to prevent a memory leak, it is used via 'name.delete();'
+Here is an code example
+
+```java
+void func createPlayer() {
+    
+}
+```
 
 ### Hardware Cache Separation
 To protect tight-loop latency, Geyser enforces a default variable initializing-after division at the hardware processor layer:
@@ -271,10 +280,10 @@ List<mutable, resizable> inventory = [];
 // to explicitly state where the tail placement or offset is verified. The list must be mutable and resizable in order to add or pop else (SyntaxError: cannot add/remove item in immutable/resizable list). If missing the 'at' argument, the compiler throws an error instantly.
 inventory.add("Prunes", at=(-1)); // Added the '()' so the = and - don't get confused and the () evaluates first
 
-// Functions in geyser: void, int, String, decimal, boolean are the return types, use all if a function has mixed in return types
-all func calculateScoreIfFailOrPass(int score) {
+// Functions in geyser: void, int, String, decimal, boolean are the return types
+bool func calculateScoreIfFailElseCreateID(int score) {
     if (score > 100) {
-        return "TOO_HIGH";
+        return false;
     } elseif (score < 35) {
         return true;
     } else {
