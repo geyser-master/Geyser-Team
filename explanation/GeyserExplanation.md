@@ -21,10 +21,10 @@ Geyser has two options:
 *Path 2* — By terminal, run `geyser run "path to your file"`
 
 ### Building a `*.exe` file
-We do this by geyser's `gyexe`(need to be geyser installed via `geyser install gyexe)
+We do this by geyser's `gybuild`(need to be geyser installed via `geyser install gybuild)
 And to convert it, run
 ```bash
-gybuild build "path/to/your/file.gy" --output "path/to/your/file.exe" --architecture architecture --optimize=O_plus_number_from_0_to_3
+gybuild build "path/to/your/file.gy" --output "keep/the/file/at/here.exe" --architecture architecture --optimize=O_plus_number_from_0_to_3
 ```
 *--noconsole/--console:* Optional  
 *--collect-all modules_by_geyser_install:* Recommended(Only if your project contains modules by geyser install)  
