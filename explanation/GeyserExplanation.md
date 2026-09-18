@@ -342,6 +342,7 @@ Development moves in a strictly disciplined pipeline under the command of the Ch
 * **Team 4 (Launch & Media):** Manages the official website, syntax highlighters, documentation, and handles public advertisements to drive industry adoption.
 * **Team 5 (OS and CPU archaeological specialists):** Handles advanced cross-platform OS layers and target instructions to ensure native binary efficiency.
 
+> Note: The teams currently do not exist, we are free to hire
 ---
 ### Geyser specifications
 
