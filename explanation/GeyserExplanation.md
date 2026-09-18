@@ -76,20 +76,12 @@ The Garbage Collector is permanently banished to eliminate background lag spikes
 * Constant top-level objects stay active in the root file scope until the execution terminates, at which point the Operating System reclaims the entire layout at EOF (End of File).
 
 ### Introducing 'variable deletion'
-We are introducing manual 'variable deletion' ability, the use of it is to help clearing data to prevent a memory leak, it clears the **pointer** and **data** basically everything, it is used via 'deleteItem(...);'
+We are introducing manual 'variable deletion' ability, the use of it is to help clearing data to prevent a memory leak, it clears the **pointer** and **data** basically everything, it is used via 'name.delete()'
 Here is an code example
 
 ```java
-void func createHeavyData() {
-    for (int i = 0; i < 3; i++) {
-        createClass(name=f"Player{i}", param=(String name, int health));
-    }
-}
-void func delPlayer() {
-    for (int i = 0; i < 3; i++) {
-        deleteItem(f"Player{i}");
-    }
-}
+int x = 10;
+x.delete(); // Deletes 'x' entirely
 ```
 
 ### Hardware Cache Separation
@@ -281,7 +273,6 @@ System.print(number.concat(' ').concat(number1).concat(' ').concat(number2)); //
 ```java
 // Lists use flags to ease human pain and add more features while still keeping the code blazing fast
 List<mutable, resizable> inventory = [];
-int student_num_id = 0;
 
 // EXPLICIT INDEX REQUIREMENT RULE:
 // If a list already contains elements, adding an item requires an index target parameter
@@ -295,9 +286,6 @@ bool func calculateScoreIfFailElseCreateID(int score) {
     } elseif (score < 35) {
         return true;
     } else {
-        // INTRODUCING CREATING CLASSES
-        createClass(name=f"Student{student_num_id}", param=(String name, int marks = score));
-        student_num_id += 1;
         return false;
     }
 }
