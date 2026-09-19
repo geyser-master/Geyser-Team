@@ -141,7 +141,7 @@ System.print(toString(profile["name"]));
 // Its only for notes and helper identifier
 // An example is
 int i = 0; // Index
-// Thats it! Comments does nothing but helps the programmer
+// Thats it! Comments does nothing but helps the programmer, it automatically gets stripped out during compile time
 ```
 
 ### System exits
@@ -150,8 +150,18 @@ import geyser.lang.System;
 System.exitWithReturnCode(1);
 ```
 
+### Powerful binary tools and math
+```java
+int xor = 10 ^ 9; // OUTPUT: 3
+int amp = 10 & 9; // OUTPUT: 8
+int pip = 10 | 9; // OUTPUT: 11
+int tid = ~10; // OUTPUT: -11
+int mod = 10 % 9; // OUTPUT: 1
+int sum = (10 + 10) - 9 + 8 * 7 / 6 + (5 ** 4) / 3 * ~2 + 1; // OUTPUT: -601.8333
+```
+
 ### Introducing GUI
-Introducing GUI, this is Geyser’s native high-performance windowing and rendering interface. Instead of forcing developers to struggle with over 1,000 lines of complex driver boilerplate just to open a blank screen, Geyser completely handles low-level graphics allocations behind the scenes. By wrapping native cross-platform hooks into clean, explicit commands, it allows developers to directly harness discrete GPU multi-threading while maintaining total code clarity.
+Introducing GUI, this is Geyser’s native high-performance windowing and rendering interface. Instead of forcing developers to struggle with over 1,000 lines of complex driver boilerplate just to open a blank screen, Geyser completely handles low-level graphics allocations behind the scenes. By wrapping native cross-platform hooks into clean, explicit commands, it allows developers to directly harness discrete GPU multi-threading while maintaining total code clarity. Even with this layer, we still add a native Vulkan tool, same Geyser syntax, but original Vulkan personality, its like 'Vulkan syntax to Geyser syntax', exact same strucutre and logic, just different syntax. 
 
 ```java
 import geyser.gui.GUI;
@@ -161,7 +171,7 @@ GUI.useRenderTool("vulkan");
 
 // Check if a GPU exists
 if ((GUI.findGPU) == 0) {
-    GUI.initGPU(amount="max"); // We found one, lets initialize all gpus to be used
+    GUI.initDGPU(amount="max"); // We found one, lets initialize all gpus to be utilized
 } else {
     GUI.initIGPU(); // Sadly we have to use an Intregrated GPU
 }
@@ -169,7 +179,7 @@ if ((GUI.findGPU) == 0) {
 // Runs a while loop as long as no 'window_should_close' signal via clicking the 'X' or terminating the task comes
 while (not GUI.WINDOW_SHOULD_CLOSE) {
     GUI.renderTriangle(size=(10, 10), color="#FF0000", at=(10, 10), rotationAxis=0); // Setting the location, usually its by the shape center point
-}
+} // The user clicked X and sent the window to the shadow realm!
 
 // Destroy the GUI and cleanup
 GUI.destroy();
@@ -182,12 +192,12 @@ import geyser.lang.System;
 import geyser.lang.Prompt;
 import geyser.lang.string.concatenate;
 
-// Global variables are visible everywhere, avoiding nested local-scope inheritance locks
-global String gameTitle = "DocItOut";
+// Global prefixes are unnesecary to prevent damn pain-in-the-ahh 'restricted area' errors
+String gameTitle = "DocItOut";
 
 // Indentation does not matter to the compiler; it is strictly for human beauty
-String part1 = "Patient status: ";
-String part2 = "Stable\n";
+     String part1 = "Patient status: ";
+            String part2 = "Stable\n";
 String status = part1.concatenate(part2); // The '+' operator is purified strictly for math
 
 System.print(status);
@@ -215,7 +225,7 @@ patientPulse += 5; // Valid: mutates the hardware slot directly
 
 int patientHB = 80 + 10; // Also valid: Constant folding handles this at build-time with zero runtime penalty
 
-10 + 10; // Quietly gets optimized
+10 + 10; // Gets removed by optimizer
 ```
 
 ### Index
@@ -346,11 +356,11 @@ Geyser blocks bugs before they can ever execute on hardware by throwing descript
 Development moves in a strictly disciplined pipeline under the command of the Chief Architect:
 * **Team 1 (Compiler Thinkers):** Maps specifications to native hardware logic and handles register layouts within the C/LLVM backend.
 * **Team 2 (Syntax Developers):** Builds the actual C tokenizer, lexer, and parser within CLion to read `.gy` source text and enforce compile-time error gates.
-* **Team 3 (Code Breakers):** Aggressively stress-tests the system by writing broken code to find compiler exploits, racing bugs, or memory leakage flaws.
+* **Team 3 (Code Breakers):** Aggressively stress-tests the system by writing broken code AND correct to find compiler exploits, racing bugs, or memory leakage flaws.
 * **Team 4 (Launch & Media):** Manages the official website, syntax highlighters, documentation, and handles public advertisements to drive industry adoption.
-* **Team 5 (OS and CPU archaeological specialists):** Handles advanced cross-platform OS layers and target instructions to ensure native binary efficiency.
+* **Team 5 (OS and CPU archaeological specialists):** Handles advanced cross-platform OS layers mapping and target instructions to ensure native binary efficiency.
 
-> Note: The teams currently do not exist, we are free to hire
+> Note: The teams currently do not exist but we are free to hire
 ---
 ### Geyser specifications
 
