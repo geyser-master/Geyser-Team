@@ -318,35 +318,37 @@ System.print(myPlayer.health); // Testing if it really increased
 Geyser blocks bugs before they can ever execute on hardware by throwing descriptive compile-time errors instantly and smart explicit warnings:
 
 ### Errors
-* **`SyntaxError`** — Disrespecting language grammar (e.g., leaving out a mandatory trailing semicolon `;`, attempting an unauthorized wildcard `*` import, or omitting list element injection index parameters `[]`).
-  *Output:* `SyntaxError: explicit index placement required for collection mutation`
+* **`SyntaxError`** — Disrespecting language grammar (e.g., leaving out a mandatory trailing semicolon `;`, attempting an unauthorized wildcard `*` import).
+  *Output:* `SyntaxError: no such file '*' in 'geyser.lang'`
 * **`ConditionalError`** — Attempting to evaluate a raw condition without an explicit comparison check.
-  *Output:* `ConditionalError: cannot reference true or false to variable with no true check or false check`
+  *Output:* `ConditionalError: implicit value '10' which cannot be evaluated as truthy or falsy`
 * **`NameError`** — referencing an unknown identifier, using a variable before it exists, or trying to access a class layout without instantiating it.
   *Output:* `NameError: cannot access class 'Player' without creating it`
 * **`ArgumentError`** — Violating arguments rules where you dont pass a critical argument.
-  *Output:* `ArgumentError: expected argument got none`
+  *Output:* `ArgumentError: expected argument 'at'`
 * **`AssignmentError`** — Collision violations (e.g., trying to duplicate a variable declaration inside the same scope boundary).
   *Output:* `AssignmentError: cannot reassign variable 'currentVelocity'`
 * **`AttributeError`** — Unknown attributes
-  *Output:* `AttributeError: module 'System' does not have attribute 'Wipe'`
+  *Output:* `AttributeError: module 'System' does not have attribute 'ClearScreen'`
 * **`TypeError`** — Attempting to push mismatched data types into an explicit hardware slot.
-  *Output:* `TypeError: expected value 'int' got 'decimal' in type 'int'`
+  *Output:* `TypeError: cannot assign 'int8' to 'float64' slot`
 * **`ValueError`** — Encountering an unbound data transformation or failing to secure a raw layout slot for conversion.
-  *Output:* `ValueError: expected variable to store output`
+  *Output:* `ValueError: stdout expects 'String' but got 'int'`
 * **`IndexError`** — Index violation(e.g., trying to read over the index limit).
 * **`ModuleError`** — Unknown module name
-  *Output:* `ModuleError: no module named 'Bloat'`
+  *Output:* `ModuleError: no module named 'AI'`
 * **`FormatError`** — Occurs when the string formatting is logically impossible
   *Output:* `FormatError: combination of 'f' and 'r' is invalid`
 * **`ExitError`** — Commonly a invalid exit code
-  *Output:* `ExitError: exit code 'Crazy' is invalid`
+  *Output:* `ExitError: exit code 'SIGHAPPY' is invalid`
+
+These are all examples and not literal ones
 
 ### Warnings
 * **`SyntaxWarning`** — Things that might break in the future or violate syntax in the future or a warning that code might break in runtime
-* **`DeprecatedWarning`** — Warning of deprecated feature, builtins or modules .etc (Example: `DeprecatedWarning: feature/module/builtin 'name' is deprecated`)
+* **`DeprecatedWarning`** — Warning of deprecated feature, builtins or modules .etc (Example: `DeprecatedWarning: 'System.beep' is deprecated`)
 
-> Note: Also during compilation if this error pops up it throws an y/N prompt to continue compilation
+> Note: Also during compilation if this error pops up it throws an e/y/N prompt to continue compilation, e simply means to display all the other remaining warnings, clicking y after e means aggreeing to all warnings, if a single 'N prompt appears, the entire compilation is halted, just y means aggreeing on the current warning continuing to display the rest one by one
 
 ---
 ## 6. Organizational Project Layout
