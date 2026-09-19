@@ -84,10 +84,8 @@ int x = 10;
 x.delete(); // Deletes 'x' entirely
 ```
 
-### Hardware Cache Separation
-To protect tight-loop latency, Geyser enforces a default variable initializing-after division at the hardware processor layer:
-* **Loops are Cached:** Loop execution blocks and branching mechanisms are held natively in the CPU Instruction Cache (I-Cache) to repeat at maximum processor clock speeds.
-* **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, geyser sends a request to cache this variable, if it says yes then it is retained in the D-Cache, else it goes back to 'RAM', unless the varialbe is sent to RAM, the program will still read from the cache unless manual `uncache variable;` is invoked, we are not holding your hand.
+### Hardware cache-ing
+It is automated by the CPU, but with the linear-data ram-data arrangement, we can make it think "The program might need the next data on next round, lets keep it in the cache" and successfully make it cache the things we want
 
 ---
 ## 3. Core Data Types
@@ -100,15 +98,6 @@ Variables are raw physical memory slots. They never compile into heavy, tracking
 * `String` — Strict, flat text character sequences.
 * `boolean` — Evaluation literals (`true` or `false`).
 * `const` modifier — Makes a variable permanently immutable after initialization.
-* `cache` — Allows a variable's value to be retained in the CPU data cache when possible; the cache is invalidated when the value changes.
-* `uncache` — Makes a variable's cache cleared in the D-Cache
-
-```java
-cache int x = 10; // Makes int x have a cache in D-Cache
-uncache x; // Uncaches x
-x += 10;
-cache x; // Recaches x with a fresh copy
-```
 
 ---
 ## 4. Syntax & Grammar Guide
