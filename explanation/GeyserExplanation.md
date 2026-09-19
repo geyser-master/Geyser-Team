@@ -87,9 +87,7 @@ x.delete(); // Deletes 'x' entirely
 ### Hardware Cache Separation
 To protect tight-loop latency, Geyser enforces a default variable initializing-after division at the hardware processor layer:
 * **Loops are Cached:** Loop execution blocks and branching mechanisms are held natively in the CPU Instruction Cache (I-Cache) to repeat at maximum processor clock speeds.
-* **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, it is retained in the D-Cache, and the program will still read from the cache unless manual `uncache variable;` is invoked, we are not holding your hand.
-
-These are not gurranted and usually by an request where it can be rejected by the CPU if its busy doing other heavy-tasks
+* **Variables are Uncached:** To solve multi-threaded data synchronization bugs, variable reads and writes completely bypass the local CPU Data Cache (D-Cache). Operations interact directly with physical memory slots, ensuring 100% real-time data transparency across all cores. If a variable is marked as `cache`, geyser sends a request to cache this variable, if it says yes then it is retained in the D-Cache, else it goes back to 'RAM', unless the varialbe is sent to RAM, the program will still read from the cache unless manual `uncache variable;` is invoked, we are not holding your hand.
 
 ---
 ## 3. Core Data Types
@@ -170,7 +168,7 @@ int amp = 10 & 9; // OUTPUT: 8
 int pip = 10 | 9; // OUTPUT: 11
 int tid = ~10; // OUTPUT: -11
 int mod = 10 % 9; // OUTPUT: 1
-int sum = (10 + 10) - 9 + 8 * 7 / 6 + (5 ** 4) / 3 * ~2 + 1; // OUTPUT: -601.8333
+dec64 sum = (10 + 10) - 9 + 8 * 7 / 6 + (5 ** 4) / 3 * ~2 + 1; // OUTPUT: -601.8333
 hex hexadecimal_num = 0xFF;
 bin binary_num = 0b11111111;
 ```
