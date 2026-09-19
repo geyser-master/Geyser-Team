@@ -280,12 +280,32 @@ System.print(number.concat(' ').concat(number1).concat(' ').concat(number2)); //
 ### Collections, Arrays & Objects
 ```java
 // Lists use flags to ease human pain and add more features while still keeping the code blazing fast
-List<mutable, resizable> inventory = [];
+List<mutable, resizable> inventory = ["Apple", "Banana"];
 
 // EXPLICIT INDEX REQUIREMENT RULE:
 // If a list already contains elements, adding an item requires an index target parameter
-// to explicitly state where the tail placement or offset is verified. The list must be mutable and resizable in order to add or pop else (SyntaxError: cannot add/remove item in immutable/resizable list). If missing the 'at' argument, the compiler throws an error instantly.
-inventory.add("Prunes", at=(-1)); // Added the '()' so the = and - don't get confused and the () evaluates first
+// to explicitly state where the tail placement or offset is verified. The list must be mutable and resizable in order to add or pop else (SyntaxError: cannot add/remove item in immutable/resizable list). If missing the 'at' argument, the compiler throws an error instantly, it works like
+//  0  1
+// -2 -1
+//  A  B
+// In here, A means Apple, B means Banana
+// Now we want to add 'Prunes', we name it 'P' in this example
+//  0  1  2 <-- Look! New index
+// -3 -2 -1 <-- geyser recalculates the negative index
+//  A  B  C
+// Notice? Index works like
+// e.g: we add prune in '-1' so to do it geyser
+//  0  1  2 <-- Adds a new slot index
+// -3 -2 -1 <-- Updates the negative index
+//  A  B []
+// In here we need to add Prune in that empty -1, but in geyser adding an item, its index gets incremented to make the item go to the right empty slot, so we need to use -2 in here where it goes automatically to the right which is -1 and places Prunes in there! now out list is
+//  A  B  P
+// Now you think "What about in between!?"
+// It works the same
+// So now if we want to add 'Oranges', lets name them 'O'
+// We want to place it in '-2' shifting everything to the right to reserve a space, so we need to use '-3' to make it go to the right to become '-2', pushing the things after it a right to reserve a slot, update the negative and positive index, and place 'O' in the new slot, so now the array is
+//  A  O  B  P
+inventory.add("Prunes", at=(-2)); // Added the '()' so the = and - don't get confused and the () evaluates first
 
 // Functions in geyser: void, int, String, decimal, boolean are the return types
 bool func calculateScoreIfFailElseCreateID(int score) {
