@@ -144,13 +144,26 @@ int i = 0; // Index
 // Thats it! Comments does nothing but helps the programmer, it automatically gets stripped out during compile time
 ```
 
+### Memory addresses
+```java
+import geyser.lang.System;
+import geyser.lang.conversion.toString;
+int x = 10;
+int y = 20;
+pointer ptrX = addressOf(x); // e.g: 0x1000
+pointer manualPtrX = 0x1000;
+ptrX = addressOf(y); // Changes the memory address to 'y'
+valueOf(manualPtrX) = 30; // Changes the value of the address to 30
+System.print(f"X: {toString(x)} | Y: {toString(y)}");
+```
+
 ### System exits
 ```java
 import geyser.lang.System;
 System.exitWithReturnCode(1);
 ```
 
-### Powerful binary tools and math
+### Powerful binary tools, math, and value type prefixes
 ```java
 int xor = 10 ^ 9; // OUTPUT: 3
 int amp = 10 & 9; // OUTPUT: 8
@@ -158,6 +171,8 @@ int pip = 10 | 9; // OUTPUT: 11
 int tid = ~10; // OUTPUT: -11
 int mod = 10 % 9; // OUTPUT: 1
 int sum = (10 + 10) - 9 + 8 * 7 / 6 + (5 ** 4) / 3 * ~2 + 1; // OUTPUT: -601.8333
+hex hexadecimal_num = 0xFF;
+bin binary_num = 0b11111111;
 ```
 
 ### Introducing GUI
@@ -527,7 +542,7 @@ import geyser.gui.Vulkan;
 // ----------------------------------------------------------------------------
 // SECTION 10: ANSI HARDWARE TERMINAL STREAM LOGGING & RETURN SIGNALS
 // ----------------------------------------------------------------------------
-// The '+' symbol is purified strictly for mathematics, requiring explicit '.concat()' calls.
+// The '+' symbol is purified strictly for mathematics, requiring explicit '.concat()' calls or 'f' specifiers.
 // Standard ANSI escape color codes print cleanly to hard-boiled terminals.
 System.print("\033[38;2;255;255;0mHello World\033[0m\n");
 
