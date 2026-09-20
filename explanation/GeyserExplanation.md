@@ -21,15 +21,13 @@ Geyser has two options:
 *Path 2* — By terminal, run `gy.exe run "path to your file"`
 
 ### Building a `*.exe` file
-We do this by geyser's `gybuild`(need to be geyser installed via `geyser install gybuild)
-And to convert it, run
+We do this by geyser's `gybuild`, to convert it, run
 ```bash
 gybuild build "path/to/your/file.gy" --output "keep/the/file/at/here.exe" --architecture architecture --optimize=O_plus_number_from_0_to_3
 ```
 
 An example command to convert to a `*.exe`(win) file is
 ```bash
-gpm install gybuild
 gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/game.exe" --architecture arm64 --optimize=O0
 ```
 
