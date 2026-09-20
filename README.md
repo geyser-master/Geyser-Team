@@ -14,4 +14,7 @@ Modern software shouldn't suffer from legacy overhead or unpredictable backgroun
 ### 🔍 Absolute Explicitness
 *   **No Compiler Guessing Games:** Every data type, scope boundary, statement terminator, and logical evaluation must be completely explicit. If the compiler encounters structural ambiguity, it halts instantly at build time before unsafe code can ever reach physical hardware.
 
+### Team 3 Notice
+We'll be having an server rack containing all types of hardware (e.g: AARCH64, X86_64, RISP) that has gy.exe on then (except microcontrollers which is connnected to an another existing hardware by an dongle to send compiled machine code for the microcontroller to execute it).
+
 For more details about **Geyser**, Read the *GeyserExplanation.md*
