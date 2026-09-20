@@ -12,7 +12,7 @@ Geyser is a systems programming language engineered from the ground up for high-
 ### Downloading something
 Geyser does this by fetching from the net to download the modules via:
 ```bash
-geyser install vulkanapi
+geyser install vulkan
 ```
 
 ### Running a file
@@ -56,7 +56,12 @@ If a programmer cannot handle explicitness, they can go back to Python.
   Ignores in-between quotes inside string literals
 * **`f`**  
   Formats curly brackets (Evaluates dynamic tokens into flat string literals at compile-time with zero execution penalty)
-  > *Note, If you want to add multiple string literal changers, you need to use comma's(Eg: (f, iq, r"Hello ""\ \ "))
+  > *Note, If you want to add multiple string literal changers, you need to use comma's(Eg: (r, iq"\" 'e' """))
+
+```java
+// Sane Modifier Rule: You can combine (f, iq) or (iq, r), but mixing formatting and raw text behavior is illegal.
+String invalidCombination = (f, r"Path: {user}"); // FormatError: combination of 'f' and 'r' is invalid
+```
 
 ### Existing attributes currently in **`Geyser`**
 * `toLowerCase()`  
@@ -80,8 +85,18 @@ We are introducing manual 'variable deletion' ability, the use of it is to help 
 Here is an code example
 
 ```java
+// Compile-Time Eviction (Option C)
+// When .delete() is called, the variable name is scrubbed from the compiler's symbol table.
+// Any attempt to use it again in the same scope results in an immediate build error.
 int x = 10;
-x.delete(); // Deletes 'x' entirely
+x.delete();
+System.print(toString(x)); // Fatal Compile-Time Error: NameError: undefined name 'x'
+
+// Alias tracking behavior
+Player p1 = new Player("Surgeon", 100);
+Player p2 = p1; // p2 is strictly a memory alias (pointer reference) to p1
+p1.delete();
+p2.heal(50); // NameError: no such function 'heal' in p2
 ```
 
 ### Hardware cache-ing
@@ -93,7 +108,7 @@ It is automated by the CPU, but with the linear-data ram-data arrangement, we ca
 Variables are raw physical memory slots. They never compile into heavy, tracking object layers or dynamic wrappers. Once assigned, a variable remains that type permanently, variables are arranged in a linear-array commonly first in the RAM default, so the CPU can assume that the program might need the next few of the slots and keep it in the fast cache-line.
 
 * `unsigned` — Makes the target binary value unsigned
-* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32, int1024), can go up to much as you want, just... i hope you have that much memory if you are allocating a lot).
+* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32, int1024), can go up to much as you want, just... i hope you have that much memory if you are allocating a lot, if you cause a Overflow/Underflow, we dont care, you asked for it).
 * `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by 'decnumber'(e.g: 'dec32')).
 * `String` — Strict, flat text character sequences.
 * `boolean` — Evaluation literals (`true` or `false`).
@@ -115,7 +130,7 @@ import geyser.lang.System;
 import geyser.lang.conversion.toString;
 Dict profile = {
     "name": "Alex",
-    "userid": 10452 // Loose trailing ',' are forbidden with a "ValueError: expected value after  ','"
+    "userid": 10452 // Loose trailing ',' are optimized and removed at compile time
 };
 
 // Printing the value with the name
@@ -217,7 +232,7 @@ int patientHB = 80 + 10; // Also valid: Constant folding handles this at build-t
 1. Index cannot be over the string/list etc. range
 2. Index requires a strict square brackets formatting
 3. Index is just the standard `[start:stop:step]` rules(also it also has negative indexing, same rules, starts at 0 in positive, starts at -1 in negative)
-4. Index guarantees it does not unexpectedly give up just because the output is *bad* to it no matter what(Unlike Python)
+4. Index here is not too confuzing
 
 ```java
 String text = "Motherfather";
@@ -225,7 +240,7 @@ String result = text[0:6]; // Starts: 0, Ends: before 6
 ```
 
 ### Ultra-Strict Control Flow & Loops
-Conditions inside `if` statements require explicit true/false comparison operators. Implicit shortcut evaluations are illegal. Semicolons at the exact end of a third instruction inside `for` loop headers are redundant and forbidden.
+Conditions inside `if` statements require explicit true/false comparison operators. Implicit shortcut evaluations are illegal. Semicolons at the exact end of a third instruction inside `for` loop headers are redundant.
 
 ```java
 boolean patientBleeding = true;
@@ -241,7 +256,8 @@ if (emergencyLevel.exists() and patientBleeding == true) {
 }
 
 // Logical text operators ('and', 'or') are used instead of confusing '&&' or '||'
-for (int i = 0; i < 100; i += 1) {
+// Compiler quietly optimizes the redundant semicolons and other semicolons to just a single raw machine code
+for (int i = 0; i < 100; i += 1;) {
     System.print(i);
 }
 ```
@@ -266,7 +282,7 @@ System.print(number.concat(' ').concat(number1).concat(' ').concat(number2)); //
 
 ### Collections, Arrays & Objects
 ```java
-// Lists use flags to ease human pain and add more features while still keeping the code blazing fast
+// Lists use flags to ease human pain and add more features while still keeping the code blazing fast, lists can hold any data type
 List<mutable, resizable> inventory = ["Apple", "Banana"];
 
 // EXPLICIT INDEX REQUIREMENT RULE:
@@ -317,45 +333,25 @@ Player myPlayer = new Player("Surgeon", 100);
 System.print(myPlayer.health);
 myPlayer.heal(100);
 System.print(myPlayer.health); // Testing if it really increased
+
+// Dual-Track Instantiation Matrix
+// Track 1: Arguments map to the top-to-bottom physical order of class fields.
+Player workerA = new Player("Surgeon", 100);
+
+// Track 2: Arguments can use explicit field keys in any layout order.
+Player workerB = new Player(health=100, name="Architect");
+
+// Error Gate: Mixing positional and named arguments is confuzing for a programmer so its banned
+Player brokenWorker = new Player("Surgeon", health=100); // ArgumentError: cannot mix named and non-named arguments
+// Is it a hospital!? THREE PLAYERS ARE SURGEONS!!!
 ```
 
 ---
 ## 5. Build Integrity & The Error Engine
 
-Geyser blocks bugs before they can ever execute on hardware by throwing descriptive compile-time errors instantly and smart explicit warnings:
+Geyser blocks bugs before they can ever execute on hardware by throwing descriptive compile-time errors instantly and smart explicit warnings, i am not going to reveal the error names, discover it yourself :D
 
-### Errors
-* **`SyntaxError`** — Disrespecting language grammar (e.g., leaving out a mandatory trailing semicolon `;`, attempting an unauthorized wildcard `*` import).
-  *Output:* `SyntaxError: no such file '*' in 'geyser.lang'`
-* **`ConditionalError`** — Attempting to evaluate a raw condition without an explicit comparison check.
-  *Output:* `ConditionalError: implicit value '10' which cannot be evaluated as truthy or falsy`
-* **`NameError`** — referencing an unknown identifier, using a variable before it exists, or trying to access a class layout without instantiating it.
-  *Output:* `NameError: cannot access class 'Player' without creating it`
-* **`ArgumentError`** — Violating arguments rules where you dont pass a critical argument.
-  *Output:* `ArgumentError: expected argument 'at'`
-* **`AssignmentError`** — Collision violations (e.g., trying to duplicate a variable declaration inside the same scope boundary).
-  *Output:* `AssignmentError: cannot reassign variable 'currentVelocity'`
-* **`AttributeError`** — Unknown attributes
-  *Output:* `AttributeError: module 'System' does not have attribute 'ClearScreen'`
-* **`TypeError`** — Attempting to push mismatched data types into an explicit hardware slot.
-  *Output:* `TypeError: cannot assign 'int8' to 'float64' slot`
-* **`ValueError`** — Encountering an unbound data transformation or failing to secure a raw layout slot for conversion.
-  *Output:* `ValueError: stdout expects 'String' but got 'int'`
-* **`IndexError`** — Index violation(e.g., trying to read over the index limit).
-* **`ModuleError`** — Unknown module name
-  *Output:* `ModuleError: no module named 'AI'`
-* **`FormatError`** — Occurs when the string formatting is logically impossible
-  *Output:* `FormatError: combination of 'f' and 'r' is invalid`
-* **`ExitError`** — Commonly a invalid exit code
-  *Output:* `ExitError: exit code 'SIGHAPPY' is invalid`
-
-These are all examples and not literal ones
-
-### Warnings
-* **`SyntaxWarning`** — Things that might break in the future or violate syntax in the future or a warning that code might break in runtime
-* **`DeprecatedWarning`** — Warning of deprecated feature, builtins or modules .etc (Example: `DeprecatedWarning: 'System.beep' is deprecated`)
-
-> Note: Also during compilation if this error pops up it throws an e/y/N prompt to continue compilation, e simply means to display all the other remaining warnings, clicking y after e means aggreeing to all warnings, if a single 'N prompt appears, the entire compilation is halted, just y means aggreeing on the current warning continuing to display the rest one by one
+> Note: Also during compilation if this error pops up it throws an e/y/N prompt to continue compilation, e simply means to display all the other remaining warnings, clicking y after e means aggreeing to all warnings, if a single N prompt appears, the entire compilation is halted, just y means aggreeing on the current warning continuing to display the rest one by one
 
 ---
 ## 6. Organizational Project Layout
@@ -363,17 +359,16 @@ These are all examples and not literal ones
 Development moves in a strictly disciplined pipeline under the command of the Chief Architect:
 * **Team 1 (Compiler Thinkers):** Maps specifications to native hardware logic and handles register layouts within the C/LLVM backend.
 * **Team 2 (Syntax Developers):** Builds the actual C tokenizer, lexer, and parser within CLion to read `.gy` source text and enforce compile-time error gates.
-* **Team 3 (Code Breakers):** Aggressively stress-tests the system by writing broken code AND correct to find compiler exploits, racing bugs, or memory leakage flaws.
+* **Team 3 (Code Breakers):** Aggressively stress-tests the system by writing broken code AND correct to find compiler exploits, racing bugs, or memory leakage flaws to report it to `Team 2`.
 * **Team 4 (Launch & Media):** Manages the official website, syntax highlighters, documentation, and handles public advertisements to drive industry adoption.
 * **Team 5 (OS and CPU archaeological specialists):** Handles advanced cross-platform OS layers mapping and target instructions to ensure native binary efficiency.
 
-> Note: The teams currently do not exist but we are free to hire
 ---
 ### Geyser specifications
 
   * Geyser is a compiled language designed for lightning fast execution.
   * Geyser is growing and being planned so geyser might replace `Python` and `C++` uses (Not duck-typing, i mean their uses (Like how Python is used for Data science)).
-  * Geyser has a real use and is not your everyday **`esolang`**.
+  * Geyser has a real use and is not your everyday **`esolang`**
 
 ---
 ### Example geyser script
@@ -434,7 +429,7 @@ cache clusterRegister;
 // Shortcut conditions are illegal; loops and checks require explicit true/false evaluation 
 // operators. Text logic markers ('and', 'or') are explicitly substituted for standard C 
 // notation to keep internal binary gates transparent, strict, and highly predictable.
-// Semicolons at the exact end of a third header instruction inside for loops are forbidden.
+// Semicolons at the exact end of a third header instruction inside for loops are redundant.
 if (hardwareLayerStable == true and clusterRegister > 15) {
     System.print("Hardware configuration verified stable.\n");
 } elseif (hardwareLayerStable == false) {
@@ -508,22 +503,24 @@ bool func verifyOperationalThresholds(int index) {
     } elseif (index < 35) {
         return true;
     } else {
-        return false;
+        return "NO"; // Error! ValueError: function return type 'bool' does not match return type 'String'
     }
 }
+
+bool func verifyOperationalThresholds(int extreme_speed_count) {} // Error! NameError: redefenition of 'verifyOperationalThresholds'
 
 class SystemPipelineWorker {
     String workerName;
     int dataProcessingCapacity;
     
-    void func manuallyEvictAllocation() {
+    void func removePoorJimBobName() {
         workerName.delete();
     }
 }
 
 SystemPipelineWorker primaryWorker = new SystemPipelineWorker("Surgeon", 100);
-primaryWorker.manuallyEvictAllocation();
-primaryWorker.delete();
+primaryWorker.removePoorJimBobName();
+primaryWorker.delete(); // Example of redundant code, the OS automatically collects all memory slots at end of execution
 
 // ----------------------------------------------------------------------------
 // SECTION 8: TELEMETRY MEASUREMENT DESKS & LOW-LEVEL SYSTEM TIMERS
