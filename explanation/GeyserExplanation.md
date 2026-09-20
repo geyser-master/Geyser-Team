@@ -135,6 +135,12 @@ int i = 0; // Index
 // Thats it! Comments does nothing but helps the programmer, it automatically gets stripped out during compile time
 ```
 
+### Time sleeps
+```java
+import geyser.lang.Time;
+Time.wait(1, unit="second");
+```
+
 ### Memory addresses
 ```java
 import geyser.lang.System;
@@ -147,10 +153,39 @@ valueOf(manualPtrX) = 30; // Changes the value of the address to 30
 System.print(f"X: {cast(x, String)} | Y: {cast(y, String)}");
 ```
 
+### Multi-Threading
+```java
+import geyser.lang.Threading;
+import geyser.lang.Time;
+import geyser.lang.System;
+void func calculatePizzaArrival() {
+    for (int i = 0; i <= 3; i += 1) {
+        Time.wait(1, unit="second");
+    }
+    System.print("Calculated pizza arrival time: 5022 seconds");
+}
+void func calculateEatingTime() {
+    for (int i = 0; i <= 3; i += 1) {
+        Time.wait(1, unit="second");
+    }
+    System.print("Calculated dinner time: 3544 seconds");
+}
+
+// If two threads try to modify an address at the exact same time, who was first is allowed to modify, the second has to wait
+// If a thread encounters a error, it gets immeadly destroyed
+Thread workerA = Threading.newThread(task=calculatePizzaArrival, daemon=true);
+workerA.startThread();
+Time.wait(2, unit="second");
+workerA.stopThread(); // Pauses the thread to be started again
+Time.sleep(10);
+workerA.killThread(); // Kills the thread cleaing it up
+System.exitWithReturnCode(0);
+```
+
 ### System exits
 ```java
 import geyser.lang.System;
-System.exitWithReturnCode(1);
+System.exitWithReturnCode(1); // 1: Problem, 0: Success, -1: User interrupt, these doesn't matter, just a fun thing to remember
 ```
 
 ### Powerful binary tools, math, and value type prefixes
@@ -170,7 +205,7 @@ bin binary_num = 0b11111111;
 import geyser.lang.file;
 import geyser.lang.System;
 file.make("main.txt"); // Vague names also work also takes some time
-file.write((f, iq"import geyser.lang.System;System.print("Hi");"), "main.txt")
+file.write((f, iq"import geyser.lang.System;System.print("Hi");"), "main.txt") // Invalid file paths are stopped with an "FileError: no such file or directory 'path'"
 System.print(cast(file.read("main.txt", String)));
 file.delete("C:/User/Dell/main.txt"); // Explicit paths also work
 ```
@@ -264,7 +299,7 @@ if (emergencyLevel.exists() and patientBleeding == true) {
 // Logical text operators ('and', 'or') are used instead of confusing '&&' or '||'
 // Compiler quietly optimizes the redundant semicolons and other semicolons to just a single raw machine code
 for (int i = 0; i < 100; i += 1;) {
-    System.print(i);
+    System.print(cast(i, String);
 }
 ```
 
@@ -283,9 +318,9 @@ import geyser.lang.System;
 int rand_num = Random.randomNum(type="secure", returnType="int", from=1, to=2);
 
 // 2. randomChoice: randomly guesses a choice on the given list
-// choice param values: any: any
-void generateRandomChoice() { 
-    // Random.randomChoice(choice=(10, true, "String", 30.0)); // Problemo
+// choice param values: (int, String, boolean, decimal): any
+String generateRandomChoice() { 
+    return Random.randomChoice(choice=("Yes", "No"));
 }
 
 // 3. randomHex/randomBin: randomly seeds a hex/bin based on the length by CSPRNG
