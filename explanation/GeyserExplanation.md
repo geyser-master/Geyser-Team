@@ -39,8 +39,6 @@ The path could significantly vary based on the hardware's OS.
 ### Explicit over Implicit (No Guessing Games)
 Geyser outlaws compiler guesswork. Every data type, scope boundary, statement terminator, and logical evaluation must be completely explicit. If the code breaks geyser rules or contains ambiguity, the compiler halts instantly at build time. 
 
-If a programmer cannot handle explicitness, they can go back to Python.
-
 ### Features outside string literals to change things(Usually for printing and stuff)
 * **`r`**  
   Treats the string everything as literal
