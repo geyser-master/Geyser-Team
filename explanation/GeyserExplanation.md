@@ -165,6 +165,24 @@ hex hexadecimal_num = 0xFF;
 bin binary_num = 0b11111111;
 ```
 
+### File IO's
+```java
+import geyser.lang.file;
+import geyser.lang.System;
+file.make("main.txt"); // Vague names also work also takes some time
+file.write((f, iq"import geyser.lang.System;System.print("Hi");"), "main.txt")
+System.print(cast(file.read("main.txt", String)));
+file.delete("C:/User/Dell/main.txt"); // Explicit paths also work
+```
+
+### Reading other .gy files gossips and secrets
+```java
+import files.main; // its a GY file
+main.Player myPlayer = new Player("Surgeon", 100); // ANOTHER SURGEON???
+myPlayer.heal(100);
+```
+
+
 ### Introducing GUI
 Introducing GUI, we added a native Vulkan tool, same Geyser syntax, but original Vulkan personality, its like 'Vulkan syntax to Geyser syntax', exact same strucutre and logic, just different syntax. So devs still need to struggle by the way, its just for manualism so dves can make stunning games of their own.
 
