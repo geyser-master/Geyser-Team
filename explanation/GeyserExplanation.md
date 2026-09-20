@@ -250,22 +250,36 @@ for (int i = 0; i < 100; i += 1;) {
 }
 ```
 
-### Meet randomness
+### Meet randomness and cryptography
 ```java
 import geyser.lang.Random;
+import geyser.lang.CryptoHash;
 import geyser.lang.System;
-import geyser.lang.string.concatenate as concat;
 
-// Testing CSPRNG
-int number = Random.secureRandomInt(0, 10);
+// Testing all types of randomness in geyser
+// 1. randomNum: randomly generates an number based on the type, returnType, from and to
+// type param values: (secure, true, normal)
+// returnType param values: (int, decimal, boolean)
+// from param values: int: any
+// to param values: int: any
+int rand_num = Random.randomNum(type="secure", returnType="int", from=1, to=2);
 
-// Testing Standard PRNG
-int number1 = Random.randomInt(0, 10);
+// 2. randomChoice: randomly guesses a choice on the given list
+// choice param values: any: any
+void generateRandomChoice() { 
+    // Random.randomChoice(choice=(10, true, "String", 30.0)); // Problemo
+}
 
-// Testing true randomness from OS
-int number2 = Random.trueRandomInt(0, 10);
+// 3. randomHex/randomBin: randomly seeds a hex/bin based on the length by CSPRNG
+// length param values: int: any
+hex hex_salad = Random.randomHex(length=12);
+bin bin_salad = Random.randomBin(length=24);
 
-System.print(number.concat(' ').concat(number1).concat(' ').concat(number2)); // OUTPUT: 7 3 9
+// 4. encrypt/hash: encrypts/hashes with the following algorithm
+// algorithm param values: encrypter/hasher name(lowercase, e.g: tls/sha256)
+// value param values: any: any
+hex encrypted_string = CryptoHash.encrypt(algorithm="tls", value="TOP SECRET!!!");
+hex hashed_string = CryptoHash.hash(algorithm="sha128", value="HYPER SECRET!!!");
 ```
 
 ### Collections, Arrays & Objects
