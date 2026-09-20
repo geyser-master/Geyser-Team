@@ -4,7 +4,7 @@
 
 **Core Vision:** A strict, explicit, highly predictable, and blistering fast alternative to C++.
 
-Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed, if you can't handle the tiny boilerplate, **go back to python**.
+Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed.
 
 ---
 ## 1. Terminal commands
@@ -82,7 +82,7 @@ Here is an code example
 // Any attempt to use it again in the same scope results in an immediate build error.
 int x = 10;
 x.delete();
-System.print(toString(x)); // Fatal Compile-Time Error: NameError: undefined name 'x'
+System.print(cast(x, String)); // Fatal Compile-Time Error: NameError: undefined name 'x'
 
 // Alias tracking behavior
 Player p1 = new Player("Surgeon", 100);
@@ -119,14 +119,13 @@ Geyser mades that **Wildcard imports (e.g., `import package.*;`) are strictly ba
 ```java
 import geyser.lang.Dictionary;
 import geyser.lang.System;
-import geyser.lang.conversion.toString;
 Dict profile = {
     "name": "Alex",
     "userid": 10452 // Loose trailing ',' are optimized and removed at compile time
 };
 
 // Printing the value with the name
-System.print(toString(profile["name"]));
+System.print(cast(profile["name"], String));
 ```
 
 ### Comments
@@ -141,14 +140,13 @@ int i = 0; // Index
 ### Memory addresses
 ```java
 import geyser.lang.System;
-import geyser.lang.conversion.toString;
 int x = 10;
 int y = 20;
 pointer ptrX = addressOf(x); // e.g: 0x1000
 pointer manualPtrX = 0x1000;
 ptrX = addressOf(y); // Changes the memory address to 'y'
 valueOf(manualPtrX) = 30; // Changes the value of the address to 30
-System.print(f"X: {toString(x)} | Y: {toString(y)}");
+System.print(f"X: {cast(x, String)} | Y: {cast(y, String)}");
 ```
 
 ### System exits
@@ -322,9 +320,9 @@ class Player {
 }
 
 Player myPlayer = new Player("Surgeon", 100);
-System.print(myPlayer.health);
+System.print(cast(myPlayer.health, String));
 myPlayer.heal(100);
-System.print(myPlayer.health); // Testing if it really increased
+System.print(cast(myPlayer.health, String)); // Testing if it really increased
 
 // Dual-Track Instantiation Matrix
 // Track 1: Arguments map to the top-to-bottom physical order of class fields.
@@ -390,7 +388,6 @@ import geyser.lang.List;
 import geyser.lang.Random;
 import geyser.lang.Dictionary;
 import geyser.lang.string.concatenate as concat;
-import geyser.lang.conversion.toString;
 import geyser.time.Datetime;
 import geyser.time.MeasureTimeByTask;
 import geyser.gui.Vulkan;
@@ -405,15 +402,6 @@ unsigned int32 telemetryID = 404;
 int1024 highPrecisionMatrix = 99824;
 const decimal baseLineThermal = 37.8;
 boolean hardwareLayerStable = true;
-
-// By default, Geyser separates hardware logic: loops reside flat inside the Instruction 
-// Cache (I-Cache), while variables bypass the Data Cache (D-Cache) to update physical slots 
-// directly. The 'cache' modifier explicitly forces a copy into the fast local D-Cache array, 
-// which must be flushed via manual 'uncache variable;' tags before updating the hardware.
-cache int clusterRegister = 10;
-uncache clusterRegister;
-clusterRegister += 10;
-cache clusterRegister;
 
 // ----------------------------------------------------------------------------
 // SECTION 3: UNYIELDING CONTROL FLOW STRUCTURES & ITERATION PASSED LOGIC
@@ -431,7 +419,7 @@ if (hardwareLayerStable == true and clusterRegister > 15) {
 }
 
 for (int i = 0; i < 3; i += 1) {
-    System.print(i);
+    System.print(cast(i, String));
 }
 
 // ----------------------------------------------------------------------------
@@ -524,7 +512,7 @@ platformClock.getSystemTime("H:M:S");
 String stringConvertedTime = platformClock.toString();
 
 decimal precisePerformanceScore = MeasureTimeByTask(task=iq"System.print("Task Checked")", measureBy="picoseconds");
-System.print(f"Silicon execution speed tracked: {precisePerformanceScore}");
+System.print(f"Silicon execution speed tracked: {cast(precisePerformanceScore, String)}");
 
 // ----------------------------------------------------------------------------
 // SECTION 9: RAW MANUAL VULKAN WINDOWING REGISTRY INTERFACE
