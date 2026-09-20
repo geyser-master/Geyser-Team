@@ -12,13 +12,13 @@ Geyser is a systems programming language engineered from the ground up for high-
 ### Downloading something
 Geyser does this by fetching from the net to download the modules via:
 ```bash
-geyser install vulkan
+gpm install vulkan # GPM means Geyser Package Manager
 ```
 
 ### Running a file
 Geyser has two options:
 *Path 1* — If you had an IDE, Simply click the run button
-*Path 2* — By terminal, run `geyser run "path to your file"`
+*Path 2* — By terminal, run `gy.exe run "path to your file"`
 
 ### Building a `*.exe` file
 We do this by geyser's `gybuild`(need to be geyser installed via `geyser install gybuild)
@@ -26,16 +26,10 @@ And to convert it, run
 ```bash
 gybuild build "path/to/your/file.gy" --output "keep/the/file/at/here.exe" --architecture architecture --optimize=O_plus_number_from_0_to_3
 ```
-*--noconsole/--console:* Optional  
-*--collect-all modules_by_geyser_install:* Recommended(Only if your project contains modules by geyser install)  
-*--onefile/--onedir:* Mandatory  
-*--file="file_name.gy":* Mandatory  
-*--at:* Mandatory  
-*--target:* Mandatory
 
 An example command to convert to a `*.exe`(win) file is
 ```bash
-geyser install gybuild
+gpm install gybuild
 gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/game.exe" --architecture arm64 --optimize=O0
 ```
 
