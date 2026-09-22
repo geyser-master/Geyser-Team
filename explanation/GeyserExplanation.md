@@ -4,13 +4,53 @@
 
 **Core Vision:** A strict, explicit, highly predictable, and blistering fast alternative to C++.
 
-Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed.
+Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed. Currently this is how the main Geyser package is currently now:
+
+```text
+Geyser /
+    config /
+        .gitignore
+        .gitattributes
+        CMakeLists.txt
+    engine /
+        backend /
+            codegen.c
+            detect_target.c
+        frontend /
+            lexer.c
+            parser.c
+        src /
+            gpm.c
+            gybuild.c
+            gy.c
+        bin /
+            empty
+        include /
+            tokens.h
+        build /
+            build.sh
+    explanation /
+        GeyserExplanation.md
+    modules /
+        3party /
+            empty
+        geyser /
+            lang /
+                empty
+        projects /
+            empty
+    targets /
+        x86-64-windows /
+            ...
+    README.md
+```
 
 ---
 ## 1. Terminal commands
 
 ### Downloading something
 Geyser does this by fetching from the net to download the modules via:
+
 ```bash
 gpm install vulkan # GPM means Geyser Package Manager
 ```
