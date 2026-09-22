@@ -1,0 +1,9 @@
+.idea/
+*.iws
+*.iml
+cmake-build-*/
+CMakeUserPresets.json
+ext-build/
+.DS_Store
+Thumbs.db
+*.log
