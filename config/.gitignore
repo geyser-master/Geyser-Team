@@ -1,3 +1,4 @@
+# JetBrains CLion .gitignore
 .idea/
 *.iws
 *.iml
@@ -7,3 +8,29 @@ ext-build/
 .DS_Store
 Thumbs.db
 *.log
+
+
+# VS Code C/C++ .gitignore
+.vscode/
+
+# TurboC C/C++ .gitignore
+*.BAK
+*.DSK
+*.PRJ
+*.CHR
+*.BGI
+
+# Code::Blocks C/C++ .gitignore
+*.cbp
+*.layout
+*.depend
+
+# Local .env files .gitignore
+.env
+.env.local
+
+# Executables and debug .gitignore
+*.exe
+*.so
+*.dylib
+*.pdb
