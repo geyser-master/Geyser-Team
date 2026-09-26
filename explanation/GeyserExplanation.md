@@ -29,15 +29,13 @@ Geyser /
             tokens.h
         build /
             build.sh
+            build.bat
     explanation /
         GeyserExplanation.md
     modules /
         3party /
             empty
         geyser /
-            lang /
-                empty
-        projects /
             empty
     targets /
         x86-64-windows /
