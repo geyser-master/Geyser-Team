@@ -116,13 +116,14 @@ Here is an code example
 // Any attempt to use it again in the same scope results in an immediate build error.
 int x = 10;
 x.delete();
-System.print(cast(x, String)); // Fatal Compile-Time Error: NameError: undefined name 'x'
+System.print(cast(x, String)); // NameError: undefined name 'x'
 
 // Alias tracking behavior
 Player p1 = new Player("Surgeon", 100);
 Player p2 = p1; // p2 is strictly a memory alias (pointer reference) to p1
 p1.delete();
 p2.heal(50); // NameError: no such function 'heal' in p2
+System.print(cast(p2, String)); // NameError: undefined name 'p2'
 ```
 
 ### Hardware cache-ing
@@ -134,7 +135,7 @@ It is automated by the CPU, but with the linear-data ram-data arrangement, we ca
 Variables are raw physical memory slots. They never compile into heavy, tracking object layers or dynamic wrappers. Once assigned, a variable remains that type permanently, variables are arranged in a linear-array commonly first in the RAM default, so the CPU can assume that the program might need the next few of the slots and keep it in the fast cache-line.
 
 * `unsigned` — Makes the target binary value unsigned
-* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32, int1024), can go up to much as you want, just... i hope you have that much memory if you are allocating a lot, if you cause a Overflow/Underflow, we dont care, you asked for it).
+* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32), if you cause a Overflow/Underflow, we dont care, you asked for it).
 * `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by 'decnumber'(e.g: 'dec32')).
 * `String` — Strict, flat text character sequences.
 * `boolean` — Evaluation literals (`true` or `false`).
@@ -371,7 +372,7 @@ hex encrypted_string = CryptoHash.encrypt(algorithm="tls", value="TOP SECRET!!!"
 hex hashed_string = CryptoHash.hash(algorithm="sha128", value="HYPER SECRET!!!");
 ```
 
-### Collections, Arrays & Objects
+### Collections, Arrays, Matrixes & Objects
 ```java
 // Lists use flags to ease human pain and add more features while still keeping the code blazing fast, lists can hold any data type
 List<mutable, resizable> inventory = ["Apple", "Banana"];
@@ -401,7 +402,179 @@ List<mutable, resizable> inventory = ["Apple", "Banana"];
 //  A  O  B  P
 inventory.add("Prunes", at=(-2)); // Added the '()' so the = and - don't get confused and the () evaluates first
 
-// Functions in geyser: void, int, String, decimal, boolean are the return types
+// Matrixes can be any dimension as they want
+List<mutable, unresizable> matrix = [
+    [0, 1, 0],
+    [0, 0, 0],
+    [1, 0, 1],
+];
+
+// List can contain practically a lot
+List<mutable, unresizable> randomness_poop = [
+    [p1, p2, p3],
+    [func1, func2, func3],
+    [
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+    ]
+    [
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+    ]
+    [
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+        [
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ]
+    ]
+];
+
+// Functions in geyser: void, int, String, decimal, boolean, basically anything, Period
 bool func calculateScoreIfFailElseCreateID(int score) {
     if (score > 100) {
         return false;
@@ -411,6 +584,22 @@ bool func calculateScoreIfFailElseCreateID(int score) {
         return false;
     }
 }
+
+// Data-Escaping, nested functions, and nested classes
+int func nightmare() {
+    func collosal() {
+        int Haha = 10;
+        return Haha
+    }
+    return -1
+}
+
+class NestedNightmare {
+    class NestedChild {
+        int data = nightmare.collosal();
+    }
+}
+
 // Boilerplate-free classes with automatically mapped constructors
 class Player {
     String name;
@@ -435,14 +624,22 @@ Player workerB = new Player(health=100, name="Architect");
 // Error Gate: Mixing positional and named arguments is confuzing for a programmer so its banned
 Player brokenWorker = new Player("Surgeon", health=100); // ArgumentError: cannot mix named and non-named arguments
 // Is it a hospital!? THREE PLAYERS ARE SURGEONS!!!
+
+System.print(cast(workerA, String)) // Output:-
+// Instance of 'Player' with name 'workerA' at (address)
+// Data: {
+//     name: "Surgeon",
+//     health: 100
+// }
+// Type: Class
 ```
 
 ---
 ## 5. Build Integrity & The Error Engine
 
-Geyser blocks bugs before they can ever execute on hardware by throwing descriptive compile-time errors instantly and smart explicit warnings, i am not going to reveal the error names, discover it yourself :D
+Geyser blocks bugs before they can ever execute on hardware by throwing descriptive compile-time errors instantly and smart explicit warnings
 
-> Note: Also during compilation if this error pops up it throws an e/y/N prompt to continue compilation, e simply means to display all the other remaining warnings, clicking y after e means aggreeing to all warnings, if a single N prompt appears, the entire compilation is halted, just y means aggreeing on the current warning continuing to display the rest one by one
+> Note: Also during compilation if a warning pops up it throws an e/y/N prompt to continue compilation, e simply means to display all the other remaining warnings, clicking y after e means agreeing to all warnings, if a single N prompt appears, the entire compilation is halted, just y means aggreeing on the current warning continuing to display the rest one by one
 
 ---
 ## 6. Organizational Project Layout
@@ -460,179 +657,3 @@ Development moves in a strictly disciplined pipeline under the command of the Ch
   * Geyser is a compiled language designed for lightning fast execution.
   * Geyser is growing and being planned so geyser might replace `Python` and `C++` uses (Not duck-typing, i mean their uses (Like how Python is used for Data science)).
   * Geyser has a real use and is not your everyday **`esolang`**
-
----
-### Example geyser script
-
-```java
-// ============================================================================
-//               THE COMPLETE GEOSYSTEM SPECIFICATION BLUEPRINT
-// ============================================================================
-// This production-grade script exercises 100% of the core capabilities natively 
-// defined within the Geyser (.gy) language spec repository. It provides 
-// exhaustive structural scaffolding for variables, bare-metal hardware cache 
-// modifications, strict memory slot boundaries, native low-overhead text mutation, 
-// explicit collection indexing constraints, boilerplate-free data abstractions, 
-// and raw un-encapsulated Vulkan-to-Geyser rendering loops.
-// ============================================================================
-
-// ----------------------------------------------------------------------------
-// SECTION 1: INGESTION PIPELINES & HARD-WIRED MODULE REGISTRIES
-// ----------------------------------------------------------------------------
-// Geyser outlaws implicit shortcut lookups. Wildcard imports like 'import.*' are 
-// permanently banned by the compiler frontend to avoid global namespace pollution, 
-// compile-time slowdowns, and unexpected identifier collisions.
-import geyser.lang.System;
-import geyser.lang.Prompt;
-import geyser.lang.Time;
-import geyser.lang.List;
-import geyser.lang.Random;
-import geyser.lang.Dictionary;
-import geyser.lang.string.concatenate as concat;
-import geyser.time.Datetime;
-import geyser.time.MeasureTimeByTask;
-import geyser.gui.Vulkan;
-
-// ----------------------------------------------------------------------------
-// SECTION 2: BARE-METAL MEMORY SLOTS & DISCRETE SILICON CACHE SEPARATION
-// ----------------------------------------------------------------------------
-// The Garbage Collector is permanently banished to ensure 100% predictable frames. 
-// Variables function as raw physical storage blocks mapped in a flat, linear array inside 
-// your fast system RAM slots so hardware can seamlessly execute cache-line lookups.
-unsigned int32 telemetryID = 404;
-int1024 highPrecisionMatrix = 99824;
-const decimal baseLineThermal = 37.8;
-boolean hardwareLayerStable = true;
-
-// ----------------------------------------------------------------------------
-// SECTION 3: UNYIELDING CONTROL FLOW STRUCTURES & ITERATION PASSED LOGIC
-// ----------------------------------------------------------------------------
-// Shortcut conditions are illegal; loops and checks require explicit true/false evaluation 
-// operators. Text logic markers ('and', 'or') are explicitly substituted for standard C 
-// notation to keep internal binary gates transparent, strict, and highly predictable.
-// Semicolons at the exact end of a third header instruction inside for loops are redundant.
-if (hardwareLayerStable == true and clusterRegister > 15) {
-    System.print("Hardware configuration verified stable.\n");
-} elseif (hardwareLayerStable == false) {
-    System.print("Loop boundary violation tracked.\n");
-} else {
-    System.print("Evaluating platform telemetry registers.\n");
-}
-
-for (int i = 0; i < 3; i += 1) {
-    System.print(cast(i, String));
-}
-
-// ----------------------------------------------------------------------------
-// SECTION 4: TEXT PROCESSING INLINE CHANGERS & SOVEREIGN GRAPHEMES
-// ----------------------------------------------------------------------------
-// Structural string modifiers change formatting tokens strictly at compile-time with zero 
-// execution penalty. 'r' handles raw text paths, 'iq' entirely ignores inside quotation marks 
-// inside string tokens, and 'f' evaluates dynamic embedded curly-bracket variables.
-String hardwarePath = r"C:\Users\Dell\game.gy";
-String skippedQuotes = iq"System text handles "internal nested quotes" cleanly";
-String structuredMessage = f"Thermal metric readout: {baseLineThermal}\n";
-
-// Low-level text manipulation utilities: length expressions check elements/characters based 
-// on type structures, while byte and bit lookups check literal slot hardware footprint.
-int totalCharacters = structuredMessage.lengthOf();
-int spatialBytes = clusterRegister.byteLengthOf();
-int spatialBits = clusterRegister.bitLengthOf();
-String rawLower = structuredMessage.toLowerCase();
-String rawUpper = structuredMessage.toUpperCase();
-String modifiedHeader = structuredMessage.capitalizeFirstLetter();
-String compressedSequence = rawLower.replaceAll(' ', '');
-
-// ----------------------------------------------------------------------------
-// SECTION 5: STRICT DATA DICTIONARIES & COLLECTION ALIGNMENT CRITERIA
-// ----------------------------------------------------------------------------
-// Loose trailing commas inside dictionary initialization trees are strictly forbidden, 
-// immediately crashing the compilation pass with a severe ValueError runtime block.
-Dict infrastructureNode = {
-    "node_id": 101,
-    "security_tier": "Sovereign"
-};
-
-// Lists utilize dynamic flags to balance layout footprint and speed.
-// THE EXPLICIT INDEX PLACEMENT RULE: Inserting items requires a definitive index target 
-// bracket ('at=') to state where tail placement and memory offsets are verified.
-List<mutable, resizable> coreInventory = ["CPU_EPYC", "GPU_Blackwell"];
-coreInventory.add("Microcontroller_RISCV", at=(-1));
-
-// Standard multi-byte slicing expressions enforce safe [start:stop:step] sequence parsing.
-String slicingSample = "Motherfather";
-String parsedSlice = slicingSample[0:6];
-
-// ----------------------------------------------------------------------------
-// SECTION 6: CSPRNG ALGORITHMS & TRUE PLATFORM SYSTEM RANDOMNESS
-// ----------------------------------------------------------------------------
-// Native random engines communicate directly with underlying core operating system kernels 
-// to deliver distinct hardware seed values, standard PRNG distributions, or secure keys.
-int cryptoSecureKey = Random.secureRandomInt(0, 10);
-int baselineStandardKey = Random.randomInt(0, 10);
-int pureHardwarePhysicalKey = Random.trueRandomInt(0, 10);
-
-// ----------------------------------------------------------------------------
-// SECTION 7: EXPLICIT FUNCTION LAYOUTS & REPAIR-CENTRIC CLEANUP CONSTRUCTS
-// ----------------------------------------------------------------------------
-// Return signatures must precede functions. The manually introduced variable demolition 
-// mechanism ('.delete()') allows architects to instantly wipe pointers and memory addresses 
-// within functions or loop blocks where automated scope cleanups risk lagging behind.
-bool func verifyOperationalThresholds(int index) {
-    if (index > 100) {
-        return false;
-    } elseif (index < 35) {
-        return true;
-    } else {
-        return "NO"; // Error! ValueError: function return type 'bool' does not match return type 'String'
-    }
-}
-
-bool func verifyOperationalThresholds(int extreme_speed_count) {} // Error! NameError: redefenition of 'verifyOperationalThresholds'
-
-class SystemPipelineWorker {
-    String workerName;
-    int dataProcessingCapacity;
-    
-    void func removePoorJimBobName() {
-        workerName.delete();
-    }
-}
-
-SystemPipelineWorker primaryWorker = new SystemPipelineWorker("Surgeon", 100);
-primaryWorker.removePoorJimBobName();
-primaryWorker.delete(); // Example of redundant code, the OS automatically collects all memory slots at end of execution
-
-// ----------------------------------------------------------------------------
-// SECTION 8: TELEMETRY MEASUREMENT DESKS & LOW-LEVEL SYSTEM TIMERS
-// ----------------------------------------------------------------------------
-// Date structures communicate directly with platform metrics. High-precision task metrics 
-// evaluate underlying token execution efficiency down to individual picosecond cycles.
-DatetimeObject platformClock = new Datetime();
-platformClock.getSystemTime("H:M:S");
-String stringConvertedTime = platformClock.toString();
-
-decimal precisePerformanceScore = MeasureTimeByTask(task=iq"System.print("Task Checked")", measureBy="picoseconds");
-System.print(f"Silicon execution speed tracked: {cast(precisePerformanceScore, String)}");
-
-// ----------------------------------------------------------------------------
-// SECTION 9: RAW MANUAL VULKAN WINDOWING REGISTRY INTERFACE
-// ----------------------------------------------------------------------------
-// Geyser introduces native Vulkan structures matching the exact architecture and logic 
-// of original graphics APIs, using a geyser-fied syntax framework to let developers 
-// manually construct stunning engines and optimize discrete multi-threading.
-import geyser.gui.Vulkan;
-
-// Vulkan low-level allocations and driver initialization blocks hook directly into raw graphics pipelines.
-// Developers structure custom hardware layout loops here according to https://vulkan.org rules.
-
-// ----------------------------------------------------------------------------
-// SECTION 10: ANSI HARDWARE TERMINAL STREAM LOGGING & RETURN SIGNALS
-// ----------------------------------------------------------------------------
-// The '+' symbol is purified strictly for mathematics, requiring explicit '.concat()' calls or 'f' specifiers.
-// Standard ANSI escape color codes print cleanly to hard-boiled terminals.
-System.print("\033[38;2;255;255;0mHello World\033[0m\n");
-
-// Complete system process exit returning a definitive status integer back to the OS.
-System.exitWithReturnCode(0);
-```
