@@ -58,7 +58,7 @@ gpm install vulkan # GPM means Geyser Package Manager
 ### Running a file
 Geyser has two options:
 *Path 1* — If you had an IDE, Simply click the run button
-*Path 2* — By terminal, run `gy.exe run "path to your file"`
+*Path 2* — By terminal, run `gy run "path to your file"`
 
 ### Building a `*.exe` file
 We do this by geyser's `gybuild`, to convert it, run
