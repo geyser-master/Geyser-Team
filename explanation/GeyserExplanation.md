@@ -4,39 +4,29 @@
 
 **Core Vision:** A strict, explicit, highly predictable, and blistering fast alternative to C++.
 
-Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed. Currently this is how the main Geyser package is currently now:
+Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed, In this following code examples i will be using x86_64-windows. Currently this is how the main Geyser package is currently now:
 
 ```text
-Geyser /
-    config /
-        .gitignore
-        .gitattributes
-        CMakeLists.txt
-    engine /
-        backend /
-            codegen.c
-            detect_target.c
-        frontend /
-            lexer.c
-            parser.c
-        src /
-            gpm.c
-            gybuild.c
-            gy.c
-        bin /
-            empty
+Geyser-x86_64-windows /
+    bin /
+        engine /
+            codegen.exe
+            detect_target.exe
+            lexer.exe
+            parser.exe
+        cmdlet /
+            gy.exe
+            gpm.exe
+            gybuild.exe
         include /
             tokens.h
-        build /
-            build.sh
-            build.bat
+        lib /
+            3party /
+                empty
+            geyser /
+                empty
     explanation /
         GeyserExplanation.md
-    modules /
-        3party /
-            empty
-        geyser /
-            empty
     targets /
         x86-64-windows /
             ...
@@ -70,6 +60,14 @@ gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/game.exe" --archit
 ```
 
 The path could significantly vary based on the hardware's OS.
+
+### Updating Geyser
+Sometimes you don't want the old geyser and wan't the latest geyser in the repo, to do that, run:
+```bash
+geyser update
+```
+
+This askes to close the window, runs a script to execute after 2 seconds to make sure the window is closed, rm -rf's the root geyser-...-version, downloads the latest version in the repo, unzips it in the background, and voila! done
 
 ---
 ## 2. Core Architectural Pillars
@@ -157,7 +155,7 @@ import geyser.lang.Dictionary;
 import geyser.lang.System;
 Dict profile = {
     "name": "Alex",
-    "userid": 10452 // Loose trailing ',' are optimized and removed at compile time
+    "userid": 10452 // Loose trailing ',' are optimized and removed at compile time IF its the final parameter
 };
 
 // Printing the value with the name
@@ -250,7 +248,7 @@ file.delete("C:/User/Dell/main.txt"); // Explicit paths also work
 
 ### Reading other .gy files gossips and secrets
 ```java
-import files.main; // its a GY file
+import c.Users.Dell.main; // its a GY file, for paths, if the cat starts with a root drive name, it automatically starts from it, else defaults to the root ~ on linux, . on windows
 main.Player myPlayer = new Player("Surgeon", 100); // ANOTHER SURGEON???
 myPlayer.heal(100);
 ```
