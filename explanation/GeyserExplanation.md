@@ -260,7 +260,7 @@ Introducing GUI, we added a native Vulkan tool, same Geyser syntax, but original
 
 ```java
 import geyser.gui.Vulkan;
-// Vulkan code here..., Since vulkan is already widely known and in here the syntax is just 'geyser-fied', visit https://vulkan.org/learn
+// Vulkan code here..., Since vulkan is already widely known and in here the syntax is just 'geyser-fied(used general geyser syntax instead of C++ style)', visit https://vulkan.org/learn
 ```
 
 ### Code Formatting
