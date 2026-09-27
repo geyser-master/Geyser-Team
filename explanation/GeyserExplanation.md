@@ -134,8 +134,8 @@ It is automated by the CPU, but with the linear-data ram-data arrangement, we ca
 
 Variables are raw physical memory slots. They never compile into heavy, tracking object layers or dynamic wrappers. Once assigned, a variable remains that type permanently, variables are arranged in a linear-array commonly first in the RAM default, so the CPU can assume that the program might need the next few of the slots and keep it in the fast cache-line.
 
-* `unsigned` — Makes the target binary value unsigned
-* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32), if you cause a Overflow/Underflow, we dont care, you asked for it).
+* `unsigned` — Makes the target binary value unsigned(only workable for ints)
+* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32), it can scale as large as they want by 64-bit joining if exceeding 64-bit, if you cause a Overflow/Underflow, we dont care, you asked for it).
 * `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by 'decnumber'(e.g: 'dec32')).
 * `String` — Strict, flat text character sequences.
 * `boolean` — Evaluation literals (`true` or `false`).
