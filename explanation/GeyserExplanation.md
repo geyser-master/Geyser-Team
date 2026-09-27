@@ -111,7 +111,7 @@ We are introducing manual 'variable deletion' ability, the use of it is to help 
 Here is an code example
 
 ```java
-// Compile-Time Eviction (Option C)
+// Compile-Time Eviction
 // When .delete() is called, the variable name is scrubbed from the compiler's symbol table.
 // Any attempt to use it again in the same scope results in an immediate build error.
 int x = 10;
@@ -156,7 +156,7 @@ import geyser.lang.Dictionary;
 import geyser.lang.System;
 Dict profile = {
     "name": "Alex",
-    "userid": 10452 // Loose trailing ',' are optimized and removed at compile time IF its the final parameter
+    "userid": 10452, // Loose trailing ',' are optimized and removed at compile time IF its the final parameter
 };
 
 // Printing the value with the name
@@ -375,6 +375,7 @@ hex hashed_string = CryptoHash.hash(algorithm="sha128", value="HYPER SECRET!!!")
 ### Collections, Arrays, Matrixes & Objects
 ```java
 // Lists use flags to ease human pain and add more features while still keeping the code blazing fast, lists can hold any data type
+// List can only hold a pre-initialized variable OR a raw value
 List<mutable, resizable> inventory = ["Apple", "Banana"];
 
 // EXPLICIT INDEX REQUIREMENT RULE:
