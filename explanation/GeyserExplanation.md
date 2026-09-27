@@ -67,7 +67,7 @@ Sometimes you don't want the old geyser and wan't the latest geyser in the repo,
 geyser update
 ```
 
-This askes to close the window, runs a script to execute after 2 seconds to make sure the window is closed, rm -rf's the root geyser-...-version, downloads the latest version in the repo, unzips it in the background, and voila! done
+This askes to close the window, runs a script afyer the window is closed to execute after 2 seconds to make sure the window is closed, rm -rf's the root geyser-...-version, downloads the latest version in the repo, unzips it in the background, and voila! done
 
 ---
 ## 2. Core Architectural Pillars
