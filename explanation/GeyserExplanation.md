@@ -136,10 +136,11 @@ Variables are raw physical memory slots. They never compile into heavy, tracking
 
 * `unsigned` — Makes the target binary value unsigned(only workable for ints)
 * `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32), it can scale as large as they want by 64-bit joining if exceeding 64-bit, if you cause a Overflow/Underflow, we dont care, you asked for it).
-* `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by 'decnumber'(e.g: 'dec32')).
+* `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by the pattern 'decnumber'(e.g: 'dec32')).
 * `String` — Strict, flat text character sequences.
 * `boolean` — Evaluation literals (`true` or `false`).
-* `const` modifier — Makes a variable permanently immutable after initialization.
+* `const` — Makes a variable permanently immutable after initialization.
+* `null` — A data-type for the value 'null'(Truly its a damn null, not sneaky ((void *)0)).
 
 ---
 ## 4. Syntax & Grammar Guide
@@ -337,6 +338,27 @@ if (emergencyLevel.exists() and patientBleeding == true) {
 // Compiler quietly optimizes the redundant semicolons and other semicolons to just a single raw machine code
 for (int i = 0; i < 100; i += 1;) {
     System.print(cast(i, String);
+}
+```
+
+### The Net
+```java
+import geyser.lang.Net;
+import geyser.lang.System;
+String url = "https://example.com";
+String response = Net.open(url, timeout=5);
+if (response == "TIMEDOUT") {
+    System.print("Timed out by no response");
+} elseif (response == "NOSUCHURL") {
+    System.print("Invalid url");
+} elseif (response = "DATAREADTIMEOUT") {
+    System.print("Timed out when successfully connected by not getting any data");
+} elseif (response == "CONNECTIONREFUSED") {
+    System.print("Server refused connection");
+} elseif (response == "CONNECTIONINTERRUPTED") {
+    System.print("Connection got interrupted");
+} else { // The things above are all optional checks just incase
+    System.print(cast(response, String));
 }
 ```
 
