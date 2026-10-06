@@ -18,6 +18,7 @@ Geyser-x86_64-windows /
             gy.exe
             gpm.exe
             gybuild.exe
+            gydb.exel
         include /
             tokens.h
         lib /
