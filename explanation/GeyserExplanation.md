@@ -336,27 +336,6 @@ for (int i = 0; i < 100; i += 1;) {
 }
 ```
 
-### The Net
-```java
-import geyser.lang.Net;
-import geyser.lang.System;
-String url = "https://example.com";
-String response = Net.open(url, timeout=5);
-if (response == "TIMEDOUT") {
-    System.print("Timed out by no response");
-} elseif (response == "NOSUCHURL") {
-    System.print("Invalid url");
-} elseif (response = "DATAREADTIMEOUT") {
-    System.print("Timed out when successfully connected by not getting any data");
-} elseif (response == "CONNECTIONREFUSED") {
-    System.print("Server refused connection");
-} elseif (response == "CONNECTIONINTERRUPTED") {
-    System.print("Connection got interrupted");
-} else { // The things above are all optional checks just incase
-    System.print(cast(response, String));
-}
-```
-
 ### Meet randomness and cryptography
 ```java
 import geyser.lang.Random;
