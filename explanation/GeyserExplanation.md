@@ -605,7 +605,7 @@ class Animal {
         int health;
         
         // Constructor executes code right-after class is initialized
-        // Constructor orders is the child with no child of its own is constructed first, then the childs/parent 1 level up, and so on until the main root parent
+        // Constructor orders is the root parent being constructed first, then the childs 1 level down, and so on until the last childs with no childs of themselfs (leafs)
         constructor Animal(String newName, int newHealth) {
             name = newName;
             health = newHealth;
