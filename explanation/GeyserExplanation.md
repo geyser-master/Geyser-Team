@@ -176,16 +176,6 @@ auto i = 0; // Index
 // Thats it! Comments does nothing but help the programmer, it automatically gets stripped out during compile time
 ```
 
-### Networking
-```java
-
-```
-
-### Threading
-```java
-
-```
-
 ### The System library
 All the System functions, all of these are examples
 
@@ -229,6 +219,44 @@ pointer manualPtrX = 0x1000;
 ptrX = addressOf(y); // Changes the memory address to 'y'
 valueOf(manualPtrX) = 30; // Changes the value of the address to 30
 IO.output(f"X: {cast(x, String)} | Y: {cast(y, String)}");
+```
+
+### Multi-Threading
+```java
+import geyser.lang.Threading;
+import geyser.lang.Time;
+import geyser.lang.IO;
+void func calculatePizzaArrival(int BOOB) {
+    for (int i = 0; i <= 3; i += 1) {
+        Time.wait(1, unit="second");
+    }
+    IO.output("Calculated pizza arrival time: 5022 seconds");
+}
+void func calculateEatingTime() {
+    for (int i = 0; i <= 3; i += 1) {
+        Time.wait(1, unit="second");
+    }
+    IO.output("Calculated dinner time: 3544 seconds");
+}
+
+// If two threads try to modify an address at the exact same time, who was first is allowed to modify, the second has to wait, if both threads reach a data-slot at the exact same time, both are killed causing the thread to again come back from RAM
+// If a thread encounters a error, it gets immediately destroyed
+Thread workerA = Threading.newThread(task=calculatePizzaArrival, args=(10), daemon=true); // The args argument passes required argument to the functions in a specific order, this argument is optional
+Thread workerB = Threading.newThread(task=calculateEatingTime, daemon=true);
+Thread workerC = Threading.newThread(task=calculateEatingTime, daemon=true, priority=10); // priority argument is optional to 'set' a priority to a thread
+workerC.startThread();
+Time.wait((workerC.timeBeforeFinish / 2), unit="seconds");
+if (workerC.isFinished() == false) {
+    IO.output(f"Grrh! Im impatient on the {cast(workerC.ID, String)}");
+}
+workerA.startThread();
+Time.wait(2, unit="seconds");
+workerA.stopThread(); // Pauses the thread to be started again
+Time.wait(10, unit="seconds");
+workerB.startThread();
+workerA.waitForThread(workerB);
+Time.wait(10, unit="seconds");
+workerA.killThread(); // Kills the thread cleaing it up
 ```
 
 ### Powerful binary tools, math, and value type prefixes
