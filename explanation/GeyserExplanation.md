@@ -652,12 +652,21 @@ Player brokenWorker = new Player("Surgeon", health=100); // ArgumentError: canno
 // Is it a hospital!? THREE PLAYERS ARE SURGEONS!!!
 
 System.print(cast(workerA, String)) // Output:-
-// Instance of 'Player' with name 'workerA' at (address)
+// Instance of 'Player' with name 'workerA' at [HEX_ADDRESS]
 // Data: {
 //     name: "Surgeon",
 //     health: 100
 // }
 // Type: Class
+
+// Enumeraters
+enum TemperatureF {
+    HOT = 108;
+    NORMAL = 99;
+    COLD = 88;
+}
+
+System.print(f"Ah! Its fricking {cast(TemperatureF.HOT, String)}!");
 ```
 
 ---
