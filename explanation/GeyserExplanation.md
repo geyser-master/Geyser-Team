@@ -171,7 +171,7 @@ System.print(cast(profile["name"], String));
 // This is a comment, it does nothing
 // Its only for notes and helper identifier
 // An example is
-int i = 0; // Index
+auto i = 0; // Index
 // Thats it! Comments does nothing but helps the programmer, it automatically gets stripped out during compile time
 ```
 
@@ -620,7 +620,7 @@ int func nightmare() {
     return -1
 }
 
-class NestedNightmare {
+comptime class NestedNightmare {
     class NestedChild {
         int data = nightmare.collosal();
     }
