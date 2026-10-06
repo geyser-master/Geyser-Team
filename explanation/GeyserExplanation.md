@@ -278,7 +278,6 @@ System.print(status);
 String username = Prompt("Enter surgeon name: ").toLowerCase().replaceAll(' ', '');
 
 // Tuples are default and allowed
-Tuple patients = ("101", 999, true, 10.5);
 String password = Prompt("Enter secure password: ", maskWith='*', ignore=(' ', '\r', '\n'))
 
 // ANSI
@@ -667,7 +666,7 @@ class Player inherits Animal {
 
 
 
-Player myPlayer = new Player("Surgeon");
+Player myPlayer = new Player("Surgeon", 100);
 System.print(cast(myPlayer.health, String));
 myPlayer.heal(100);
 System.print(cast(myPlayer.health, String)); // Testing if it really increased
