@@ -4,7 +4,7 @@
 
 **Core Vision:** A strict, explicit, highly predictable, and blistering fast alternative to C++.
 
-Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed, In this following code examples i will be using x86_64-windows. Currently this is how the main Geyser package is currently now:
+Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C++-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed, In this following code examples i will be using x86_64-windows. Currently this is how the main Geyser package is currently now planned:
 
 ```text
 Geyser-x86_64-windows /
