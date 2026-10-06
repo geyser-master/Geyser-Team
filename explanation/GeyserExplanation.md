@@ -138,7 +138,7 @@ Variables are raw physical memory slots. They never compile into heavy, tracking
 * `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32), it can scale as large as they want by 64-bit joining if exceeding 64-bit, if you cause a Overflow/Underflow, we dont care, you asked for it).
 * `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by the pattern 'decnumber'(e.g: 'dec32')).
 * `String` — Strict, flat text character sequences.
-* `boolean` — Evaluation literals (`true` or `false`).
+* `bool` — Evaluation literals (`true` or `false`).
 * `const` — Makes a variable permanently immutable after initialization.
 * `null` — A data-type for the value 'null'(Truly its a damn null, not sneaky ((void *)0)).
 * `comptime` — A keyword to make a specific variable/function/class etc. evaluated at compile-time
@@ -217,7 +217,7 @@ Thread workerA = Threading.newThread(task=calculatePizzaArrival, daemon=true);
 workerA.startThread();
 Time.wait(2, unit="second");
 workerA.stopThread(); // Pauses the thread to be started again
-Time.sleep(10);
+Time.wait(10, unit="seconds");
 workerA.killThread(); // Kills the thread cleaing it up
 System.exitWithReturnCode(0);
 ```
@@ -275,10 +275,10 @@ System.print("\033[38;2;255;255;0mHello World\033[0m\n");
 ```
 
 ### Strict Mathematical Rules
-2. An existing, declared variable name cannot be re-declared.
-3. Modification of an existing slot must use explicit compound mutation operators (`+=`, `-=`, `*=`, `/=` etc.), reassignment without declaring type again or reassignment with math operators etc..
-4. Slot type must match the value else (TypeError: mismatched types between slot type and value)
-5. Truncation in values are guaranted to not happen unless explicitly told to do so
+1. An existing, declared variable name cannot be re-declared.
+2. Modification of an existing slot must use explicit compound mutation operators (`+=`, `-=`, `*=`, `/=` etc.), reassignment without declaring type again or reassignment with math operators etc..
+3. Slot type must match the value else (TypeError: mismatched types between slot type and value)
+4. Truncation in values are guaranted to not happen unless explicitly told to do so
 
 ```java
 int patientPulse = 70;
@@ -301,7 +301,7 @@ String result = text[0:6]; // Starts: 0, Ends: before 6
 ```
 
 ### Ultra-Strict Control Flow & Loops
-Conditions inside `if` statements require explicit true/false comparison operators. Implicit shortcut evaluations are illegal. Semicolons at the exact end of a third instruction inside `for` loop headers are redundant.
+Conditions inside `if` statements require explicit true/false comparison operators. Implicit shortcut evaluations are illegal. Semicolons at the exact end of a third instruction inside `for` loop headers are redundant, Machine code doesnt care about semicolons so the entire statement is anyways... going to be converted to machine code.
 
 ```java
 boolean patientBleeding = true;
@@ -317,7 +317,7 @@ if (emergencyLevel.exists() and patientBleeding == true) {
 }
 
 // Logical text operators ('and', 'or') are used instead of confusing '&&' or '||'
-// Compiler quietly optimizes the redundant semicolons and other semicolons to just a single raw machine code
+// Compiler quietly optimizes the redundant semicolons, adding it is no use, machine code doesn't care of semicolons
 for (int i = 0; i < 100; i += 1;) {
     System.print(cast(i, String));
 }
@@ -604,6 +604,7 @@ class Animal {
         String name;
         int health;
         
+        // Constructor executes code right-after class is initialized
         constructor Animal(String newName, int newHealth) {
             name = newName;
             health = newHealth;
@@ -615,6 +616,7 @@ class Animal {
             System.print("Woof!");
         }
 
+        // Destructor executes code right-before class gets sent to the shadow-realm
         destructor Animal() {
             ptr = null;
         }
