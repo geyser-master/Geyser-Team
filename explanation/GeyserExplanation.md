@@ -605,7 +605,7 @@ bool func calculateScoreIfFailElseCreateID(int score) {
 int func nightmare() {
     func collosal() {
         int Haha = 10;
-        return Haha
+        return Haha // If Haha wasn't freed, it would be cleared when this function was called, but since it can return, iif it was called, the variable gets released to that scope
     }
     return -1
 }
@@ -634,8 +634,14 @@ class Animal {
             health = newHealth;
         }
 
+        pointer ptr = addressOf(health);
+
         void func bark() {
             System.print("Woof!");
+        }
+
+        destructor Animal() {
+            ptr = null;
         }
     }
 }
