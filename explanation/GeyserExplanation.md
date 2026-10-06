@@ -663,7 +663,7 @@ Player workerB = new Player(health=100, name="Architect");
 Player brokenWorker = new Player("Surgeon", health=100); // ArgumentError: cannot mix named and non-named arguments
 // Is it a hospital!? THREE PLAYERS ARE SURGEONS!!!
 
-System.print(cast(workerA, String)) // Output:-
+System.print(cast(workerA, String)); // Output:-
 // Instance of 'Player' with name 'workerA' at [HEX_ADDRESS]
 // Data: {
 //     name: "Surgeon",
