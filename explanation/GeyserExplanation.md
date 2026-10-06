@@ -94,12 +94,12 @@ String invalidCombination = (f, r"Path: {user}"); // FormatError: combination of
   Makes a string lowercase
 * `toUpperCase()`  
   Makes a string uppercase
-* `replaceAll(old, new)`(RegEx also allowed)  
+* `replaceAll(old, new)` 
   Replaces the old string with the new string
 * `capitalizeFirstLetter()`  
   Makes a certain string first letter capitalized
-* `lengthOf()/byteLengthOf()/bitLengthOf()`  
-  Checks a length of a given value. if string, checks characters; if int, error; if array, checks the total element count. for byteLengthOf, checks how much bytes occupies so int is valid. for bitLengthOf, same logic, but it checks the bits
+* ~~`lengthOf()/byteLengthOf()/bitLengthOf()`~~  
+  Removed lengthOf feature
 
 ### The "Yeet the GC" Memory Strategy
 The Garbage Collector is permanently banished to eliminate background lag spikes and unpredictable stuttering frames. Geyser utilizes **Automatic Scope-Based Cleanup**:
@@ -116,33 +116,34 @@ Here is an code example
 // Any attempt to use it again in the same scope results in an immediate build error.
 int x = 10;
 x.delete();
-System.print(cast(x, String)); // NameError: undefined name 'x'
+IO.output(cast(x, String)); // NameError: undefined name 'x'
 
-// Alias tracking behavior
+// Aliases: Assigning one variable to another object variable creates an alias to the original variable/object rather than copying its underlying data. The alias acts as an additional name for the original target. Deleting the original target does not magically rewrite every alias; aliases referring to the destroyed target may therefore become dangling.
 Player p1 = new Player("Surgeon", 100);
-Player p2 = p1; // p2 is strictly a memory alias (pointer reference) to p1
+Player p2 = p1; // p2 is an alias (additional name) referring to p1
 p1.delete();
-p2.heal(50); // NameError: no such function 'heal' in p2
-System.print(cast(p2, String)); // NameError: undefined name 'p2'
+p2.heal(50); // NameError: no such function 'heal' in p2 (OR in some cases a SIGSEGV or misinterpreting the bytes as code)
+IO.output(cast(p2, String)); // Garbage data, SIGSEGV or misinterpreting the bytes as code
 ```
 
 ### Hardware cache-ing
-It is automated by the CPU, but with the linear-data ram-data arrangement, we can make it think "The program might need the next data on next round, lets keep it in the cache" and successfully make it cache the things we want
+Using the linear-data ram-data arrangement, Geyser's memory layout and data locality may allow the compiler to generate cache-friendly access patterns. Actual cache behavior is determined by the target CPU's cache hierarchy and hardware policies.
 
 ---
 ## 3. Core Data Types
 
-Variables are raw physical memory slots. They never compile into heavy, tracking object layers or dynamic wrappers. Once assigned, a variable remains that type permanently, variables are arranged in a linear-array commonly first in the RAM default, so the CPU can assume that the program might need the next few of the slots and keep it in the fast cache-line.
+Variables are raw physical memory slots. They never compile into heavy, tracking object layers or dynamic wrappers. Once assigned, a variable remains that type permanently.
 
 * `unsigned` — Makes the target binary value unsigned(only workable for ints)
-* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32), it can scale as large as they want by 64-bit joining if exceeding 64-bit, if you cause a Overflow/Underflow, we dont care, you asked for it).
-* `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by the pattern 'decnumber'(e.g: 'dec32')).
+* `int` — Flat whole number hardware blocks. By default, its signed(Optional: If you want to be more precise, you can join a bit's number to the 'int' prefix(e.g: unsigned int32), it can scale as large as they want by 64-bit joining if exceeding 64-bit, When an integer operation exceeds the representable range of its declared width, the value wraps around to the opposite end of that range. This behavior is deterministic and defined by Geyser).
+* `decimal` — High-precision fractional numbers for physics and fluid simulations(The same 'number' rule is applied but by the pattern 'decnumber'(e.g: 'dec32'), dec32/dec64 etc. are floating-point precision numbers specifically, dec follow standard IEEE-754 rules).
 * `String` — Strict, flat text character sequences.
-* `bool` — Evaluation literals (`true` or `false`).
+* `bool` — Boolean values that evaluate to `true` or `false`.
 * `const` — Makes a variable permanently immutable after initialization.
-* `null` — A data-type for the value 'null'(Truly its a damn null, not sneaky ((void *)0)).
-* `comptime` — A keyword to make a specific variable/function/class etc. evaluated at compile-time
-* `auto` — Decides the passed data-type and generates machine-code based for that-type in compile-time
+* `null` — The null value, representing the absence of a valid object or memory target so it can be used on any variable's value (Truly its a damn null, not sneaky ((void *)0)), Geyser performs no implicit null-safety check. Dereferencing null constitutes an invalid memory access and may terminate the process through the target platform's memory-protection mechanisms.
+* `comptime` — A keyword to make a specific variable/function/class etc. evaluated at compile-time.
+* `auto` — Automatically determines a variable's type from its initializer at compile time. Once inferred, the variable behaves as though its inferred type had been explicitly declared.
+* `pointer` — A raw memory-address type whose width and representation are determined by the target architecture.
 
 ---
 ## 4. Syntax & Grammar Guide
@@ -155,15 +156,15 @@ Geyser mades that **Wildcard imports (e.g., `import package.*;`) are strictly ba
 
 ### The Dictionary
 ```java
-import geyser.lang.Dictionary;
-import geyser.lang.System;
+import geyser.lang.Dict;
+import geyser.lang.IO;
 Dict profile = {
     "name": "Alex",
-    "userid": 10452, // Loose trailing ',' are optimized and removed at compile time IF its the final parameter
+    "userid": 10452, // A trailing comma after the final dictionary entry is permitted and removed during compilation.
 };
 
 // Printing the value with the name
-System.print(cast(profile["name"], String));
+IO.output(cast(profile["name"], String));
 ```
 
 ### Comments
@@ -175,6 +176,43 @@ auto i = 0; // Index
 // Thats it! Comments does nothing but help the programmer, it automatically gets stripped out during compile time
 ```
 
+### Networking
+```java
+
+```
+
+### Threading
+```java
+
+```
+
+### The System library
+All the System functions, all of these are examples
+
+```java
+import geyser.lang.System;
+
+System.time.changeSystemTime(ymdhms="2026.1.1 00:00:00"); // Changes system clock
+System.time.changeTimezone("+12"); // Changes timezone to a specific territory
+System.geyser.IO.streamEncoding("utf-8"); // Sets encoding for Input/Output stream
+System.geyser.IO.output.flush(); // Flushes the buffer
+System.geyser.IO.input.maskUserInputWith('*'); // Masks the user input with a specific character/string
+System.geyser.IO.input.ignoreCharacters("\n", " ", "\r"); // Ignores specific character signals sended by the keyboard
+System.core.getLatestGeyserVersion(); // Gets the latest geyser version
+System.core.getCurrentGeyserVersion(); // Gets the current geyser version on the system the user is using Geyser
+System.core.getLanguageName(); // Returns the language name 'Geyser'
+System.core.exitProcessWithReturnCode(0); // Returns a exit code and terminates the program
+```
+
+### The Math library
+All the Math functions, all of these are examples
+
+```java
+import geyser.lang.Math;
+
+
+```
+
 ### Time sleeps
 ```java
 import geyser.lang.Time;
@@ -183,49 +221,14 @@ Time.wait(1, unit="second");
 
 ### Memory addresses
 ```java
-import geyser.lang.System;
+import geyser.lang.IO;
 int x = 10;
 int y = 20;
 pointer ptrX = addressOf(x); // e.g: 0x1000
 pointer manualPtrX = 0x1000;
 ptrX = addressOf(y); // Changes the memory address to 'y'
 valueOf(manualPtrX) = 30; // Changes the value of the address to 30
-System.print(f"X: {cast(x, String)} | Y: {cast(y, String)}");
-```
-
-### Multi-Threading
-```java
-import geyser.lang.Threading;
-import geyser.lang.Time;
-import geyser.lang.System;
-void func calculatePizzaArrival() {
-    for (int i = 0; i <= 3; i += 1) {
-        Time.wait(1, unit="second");
-    }
-    System.print("Calculated pizza arrival time: 5022 seconds");
-}
-void func calculateEatingTime() {
-    for (int i = 0; i <= 3; i += 1) {
-        Time.wait(1, unit="second");
-    }
-    System.print("Calculated dinner time: 3544 seconds");
-}
-
-// If two threads try to modify an address at the exact same time, who was first is allowed to modify, the second has to wait
-// If a thread encounters a error, it gets immediately destroyed
-Thread workerA = Threading.newThread(task=calculatePizzaArrival, daemon=true);
-workerA.startThread();
-Time.wait(2, unit="second");
-workerA.stopThread(); // Pauses the thread to be started again
-Time.wait(10, unit="seconds");
-workerA.killThread(); // Kills the thread cleaing it up
-System.exitWithReturnCode(0);
-```
-
-### System exits
-```java
-import geyser.lang.System;
-System.exitWithReturnCode(1); // 1: Problem, 0: Success, -1: User interrupt, these doesn't matter, just a fun thing to remember
+IO.output(f"X: {cast(x, String)} | Y: {cast(y, String)}");
 ```
 
 ### Powerful binary tools, math, and value type prefixes
@@ -235,9 +238,9 @@ int amp = 10 & 9; // OUTPUT: 8
 int pip = 10 | 9; // OUTPUT: 11
 int tid = ~10; // OUTPUT: -11
 int mod = 10 % 9; // OUTPUT: 1
-dec64 sum = (10 + 10) - 9 + 8 * 7 / 6 + (5 ** 4) / 3 * ~2 + 1; // OUTPUT: -601.8333
-hex hexadecimal_num = 0xFF;
-bin binary_num = 0b11111111;
+dec64 sum = (10 + 10) - 9 + 8 * 7 / 6 + (5 ** 4) / 3 * ~2 + 1; // OUTPUT: -646.1666666666
+hex hexadecimal_num = 0xFF; // Chooses the minimum length required for the following data if no angle-bracket length specifier is passed
+bin<16> binary_num = 0b11111111; // An optional <N> parameter explicitly specifies the storage width. When no width is supplied, Geyser selects the minimum width required to represent the value.
 ```
 
 ### Reading other .gy files gossips and secrets
@@ -250,8 +253,7 @@ myPlayer.heal(100);
 ### Code Formatting
 ```java
 // Semicolons at the end of a statement are strictly mandatory
-import geyser.lang.System;
-import geyser.lang.Prompt;
+import geyser.lang.IO;
 import geyser.lang.string.concatenate;
 
 // Global prefixes are unnesessary to prevent damn pain-in-the-ahh 'restricted area' errors
@@ -262,16 +264,22 @@ String part1 = "Patient status: ";
 String part2 = "Stable\n";
 String status = part1.concatenate(part2); // The '+' operator is purified strictly for math
 
-System.print(status);
+// cast(value, type) explicitly converts a value when a valid conversion exists. Invalid or meaningless conversions are rejected at compile time.
+IO.output(cast(status, String));
 
 // Double quotes for Strings, single quotes for clean single-byte character literals
-String username = Prompt("Enter surgeon name: ").toLowerCase().replaceAll(' ', '');
+System.IO.input.ignoreCharacters("\n", " ", "\r");
+String username = IO.input("Enter your username: ");
 
 // Tuples are default and allowed
-String password = Prompt("Enter secure password: ", maskWith='*', ignore=(" ", "\r", "\n"));
+System.IO.input.maskUserInputWith('*');
+String password = IO.input("Enter secure password: ");
+
+System.IO.input.ignoreCharacters(null);
+System.IO.input.maskUserInputWith(null);
 
 // ANSI
-System.print("\033[38;2;255;255;0mHello World\033[0m\n");
+IO.output("\033[38;2;255;255;0mHello World\033[0m\n");
 ```
 
 ### Strict Mathematical Rules
@@ -279,6 +287,7 @@ System.print("\033[38;2;255;255;0mHello World\033[0m\n");
 2. Modification of an existing slot must use explicit compound mutation operators (`+=`, `-=`, `*=`, `/=` etc.), reassignment without declaring type again or reassignment with math operators etc..
 3. Slot type must match the value else (TypeError: mismatched types between slot type and value)
 4. Truncation in values are guaranted to not happen unless explicitly told to do so
+5. Math is evaluated left-to-right instead of PEMDAS/BODMAS, Parenthetical expressions are solved first, then left-to-right math, decimal precision length for printing is 10, can be increased by 'System.math.increaseDecimalPrecisionBy(N);'
 
 ```java
 int patientPulse = 70;
@@ -301,25 +310,25 @@ String result = text[0:6]; // Starts: 0, Ends: before 6
 ```
 
 ### Ultra-Strict Control Flow & Loops
-Conditions inside `if` statements require explicit true/false comparison operators. Implicit shortcut evaluations are illegal. Semicolons at the exact end of a third instruction inside `for` loop headers are redundant, Machine code doesnt care about semicolons so the entire statement is anyways... going to be converted to machine code.
+Conditions inside `if` statements require explicit true/false comparison operators. Implicit shortcut evaluations are illegal. The third instruction in a for loop header may optionally be followed by one trailing semicolon. The semicolon is redundant and removed during compilation. More than one trailing semicolon is invalid syntax with a 'SyntaxError: more than 1 trailing semicolon in for-loop', Machine code doesnt care about semicolons so the entire statement is anyways... going to be converted to machine code.
 
 ```java
-boolean patientBleeding = true;
+bool patientBleeding = true;
 int emergencyLevel = 5;
 
-// Variables check presence explicitly using .exists()
+// .exists() is a compiler-recognized memory-presence check. Unlike ordinary variable access, it may be evaluated even when the referenced variable has been deleted or is otherwise unavailable by normal name lookup. It returns true when the referenced memory/object is present and false when it is absent.
 if (emergencyLevel.exists() and patientBleeding == true) {
-    System.print("Initiate surgery\n");
+    IO.output("Initiate surgery\n");
 } elseif (patientBleeding == false) {
-    System.print("Vitals stable\n");
+    IO.output("Vitals stable\n");
 } else {
-    System.print("Evaluating\n");
+    IO.output("Evaluating\n");
 }
 
 // Logical text operators ('and', 'or') are used instead of confusing '&&' or '||'
 // Compiler quietly optimizes the redundant semicolons, adding it is no use, machine code doesn't care of semicolons
 for (int i = 0; i < 100; i += 1;) {
-    System.print(cast(i, String));
+    IO.output(cast(i, String));
 }
 ```
 
@@ -327,19 +336,19 @@ for (int i = 0; i < 100; i += 1;) {
 ```java
 import geyser.lang.Random;
 import geyser.lang.CryptoHash;
-import geyser.lang.System;
+import geyser.lang.IO;
 
 // Testing all types of randomness in geyser
 // 1. randomNum: randomly generates an number based on the type, returnType, from and to
 // type param values: (secure, true, normal)
-// returnType param values: (int, decimal, boolean)
+// returnType param values: (int, decimal, bool)
 // from param values: int: any
 // to param values: int: any
 int rand_num = Random.randomNum(type="secure", returnType="int", from=1, to=2);
 
 // 2. randomChoice: randomly guesses a choice on the given list
-// choice param values: (int, String, boolean, decimal): any
-String generateRandomChoice() { 
+// choice param values: (int, String, bool, decimal): any
+String func generateRandomChoice() { 
     return Random.randomChoice(choice=("Yes", "No"));
 }
 
@@ -351,8 +360,8 @@ bin bin_salad = Random.randomBin(length=24);
 // 4. encrypt/hash: encrypts/hashes with the following algorithm
 // algorithm param values: encrypter/hasher name(lowercase, e.g: tls/sha256)
 // value param values: any: any
-hex encrypted_string = CryptoHash.encrypt(algorithm="tls", value="TOP SECRET!!!");
-hex hashed_string = CryptoHash.hash(algorithm="sha128", value="HYPER SECRET!!!");
+hex encrypted_string = CryptoHash.encrypt(algorithm="aes256gcm", value="TOP SECRET!!!");
+hex hashed_string = CryptoHash.hash(algorithm="sha256", value="HYPER SECRET!!!");
 ```
 
 ### System and OS'es
@@ -405,168 +414,10 @@ List<mutable, unresizable> matrix = [
 List<mutable, unresizable> randomness_poop = [
     [p1, p2, p3],
     [func1, func2, func3],
-    [
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-    ]
-    [
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-    ]
-    [
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-        [
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-            [
-                [1, 1, 1],
-                [1, 1, 1],
-                [1, 1, 1],
-            ]
-        ]
-    ]
+    [1, "Poop", true],
 ];
 
-// Functions in geyser: void, int, String, decimal, boolean, basically anything, Period
+// Functions in geyser: void, int, String, decimal, bool, basically anything, Period
 bool func calculateScoreIfFailElseCreateID(int score) {
     if (score > 100) {
         return false;
@@ -579,7 +430,7 @@ bool func calculateScoreIfFailElseCreateID(int score) {
 
 // Data-Escaping, nested functions, and nested classes
 int func nightmare() {
-    func collosal() {
+    int func collosal() {
         int Haha = 10;
         return Haha; // If Haha wasn't freed, it would be cleared when this function was called, but since it can return, if it was called, the variable gets released to that scope
     }
@@ -614,7 +465,7 @@ class Animal {
         pointer ptr = addressOf(health);
 
         void func bark() {
-            System.print("Woof!");
+            IO.output("Woof!");
         }
 
         // Destructor executes code right-before class gets sent to the shadow-realm
@@ -625,6 +476,7 @@ class Animal {
     }
 }
 
+// Class can inherit more than 1 classes(e.g: Class Player inherits Speech, Animal), A class only inherits the extra feature from the inherited class, not the entire class
 class Player inherits Animal {
     private {
         String secret;
@@ -644,7 +496,7 @@ class Player inherits Animal {
         }
 
         override void func bark() {
-            System.print("Uhh Bark? Im a human, sorry");
+            IO.output("Uhh Bark? Im a human, sorry");
         }
     }
 }
@@ -652,9 +504,9 @@ class Player inherits Animal {
 
 
 Player myPlayer = new Player("Surgeon", 100);
-System.print(cast(myPlayer.health, String));
+IO.output(cast(myPlayer.health, String));
 myPlayer.heal(100);
-System.print(cast(myPlayer.health, String)); // Testing if it really increased
+IO.output(cast(myPlayer.health, String)); // Testing if it really increased
 
 // Dual-Track Instantiation Matrix
 // Track 1: Arguments map to the top-to-bottom physical order of class fields.
@@ -667,7 +519,7 @@ Player workerB = new Player(health=100, name="Architect");
 Player brokenWorker = new Player("Surgeon", health=100); // ArgumentError: cannot mix named and non-named arguments
 // Is it a hospital!? THREE PLAYERS ARE SURGEONS!!!
 
-System.print(cast(workerA, String)); // Output:-
+IO.output(cast(workerA, String)); // Output:-
 // Instance of 'Player' with name 'workerA' at [HEX_ADDRESS]
 // Data: {
 //     name: "Surgeon",
@@ -682,7 +534,7 @@ enum TemperatureF {
     COLD = 88;
 }
 
-System.print(f"Ah! Its fricking {cast(TemperatureF.HOT, String)}!");
+IO.output(f"Ah! Its fricking {cast(TemperatureF.HOT, String)}!");
 ```
 
 ---
