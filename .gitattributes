@@ -1,3 +1,1 @@
-*.dll filter=lfs diff=lfs merge=lfs -text
-targets/x86_64-windows/bin/libLLVM-22.dll filter=lfs diff=lfs merge=lfs -text
 platforms/x86_64-windows+linux+freebsd+macos_arm64-linux+macos+windows/bin/libLLVM-22.dll filter=lfs diff=lfs merge=lfs -text
