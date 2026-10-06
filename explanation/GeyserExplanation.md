@@ -240,19 +240,6 @@ hex hexadecimal_num = 0xFF;
 bin binary_num = 0b11111111;
 ```
 
-### File IO's
-```java
-import geyser.lang.file;
-import geyser.lang.System;
-file.make("textfiles", type="dir");
-file.make("textfiles/main.txt", type="file"); // Vague names also work also takes some time
-file.write((f, iq"import geyser.lang.System;System.print("Hi");"), "main.txt") // Invalid file paths are stopped with an "FileError: no such file or directory 'path'"
-System.print(cast(file.read("main.txt", String)));
-file.delete("C:/User/Dell/textfiles/main.txt"); // Explicit paths also work
-
-
-```
-
 ### Reading other .gy files gossips and secrets
 ```java
 import c.Users.Dell.main; // its a GY file, for paths, if the cat starts with a root drive name, it automatically starts from it, else defaults to the root ~ on linux, . on windows
