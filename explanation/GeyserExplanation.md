@@ -4,7 +4,7 @@
 
 **Core Vision:** A strict, explicit, highly predictable, and blistering fast alternative to C++.
 
-Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C++-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed. It has a built-in Geyser Debugger (GYDB), its dedicated debugger and error-handling tool which works alongside `gy.exe` to provide detailed diagnostics and debugging information when Geyser programs fail. In this following code examples i will be using x86_64-windows. Currently this is how the main Geyser package is currently now planned as:
+Geyser is a systems programming language engineered from the ground up for high-performance software, real-time engines, robotics, and advanced simulators (like *Fortnite*, *Cyberpunk 2077*). By dropping 40 years of legacy backward-compatibility baggage and utilizing a native, highly optimized C++-powered compiler backend linked with LLVM-22, Geyser achieves maximum hardware execution speed. It has a built-in Geyser Debugger (GYDB), its dedicated debugger and error-handling tool which works alongside `gy.exe` to provide detailed diagnostics and debugging information when Geyser programs fail. In this following code examples I will be using x86_64-windows. Currently this is how the main Geyser package is currently now planned as:
 
 ```text
 Geyser-x86_64-windows /
@@ -62,12 +62,12 @@ gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/game.exe" --archit
 The path could significantly vary based on the hardware's OS.
 
 ### Updating Geyser
-Sometimes you don't want the old geyser and wan't the latest geyser in the repo, to do that, run:
+Sometimes you don't want the old geyser and want the latest geyser in the repo, to do that, run:
 ```bash
 geyser update
 ```
 
-This askes to close the window, runs a script afyer the window is closed to execute after 2 seconds to make sure the window is closed, rm -rf's the root geyser-...-version, downloads the latest version in the repo, unzips it in the background, and voila! done
+This asks to close the window, runs a script after the window is closed to execute after 2 seconds to make sure the window is closed, rm -rf's the root geyser-...-version, downloads the latest version in the repo, unzips it in the background, and voila! done
 
 ---
 ## 2. Core Architectural Pillars
@@ -82,7 +82,7 @@ Geyser outlaws compiler guesswork. Every data type, scope boundary, statement te
   Ignores in-between quotes inside string literals
 * **`f`**  
   Formats curly brackets (Evaluates dynamic tokens into flat string literals at compile-time with zero execution penalty)
-  > *Note, If you want to add multiple string literal changers, you need to use comma's(Eg: (r, iq"\" 'e' """))
+  > *Note, If you want to add multiple string literal changers, you need to use commas (Eg: (r, iq"\" 'e' """))
 
 ```java
 // Sane Modifier Rule: You can combine (f, iq) or (iq, r), but mixing formatting and raw text behavior is illegal.
@@ -172,7 +172,7 @@ System.print(cast(profile["name"], String));
 // Its only for notes and helper identifier
 // An example is
 auto i = 0; // Index
-// Thats it! Comments does nothing but helps the programmer, it automatically gets stripped out during compile time
+// Thats it! Comments does nothing but help the programmer, it automatically gets stripped out during compile time
 ```
 
 ### Time sleeps
@@ -212,7 +212,7 @@ void func calculateEatingTime() {
 }
 
 // If two threads try to modify an address at the exact same time, who was first is allowed to modify, the second has to wait
-// If a thread encounters a error, it gets immeadly destroyed
+// If a thread encounters a error, it gets immediately destroyed
 Thread workerA = Threading.newThread(task=calculatePizzaArrival, daemon=true);
 workerA.startThread();
 Time.wait(2, unit="second");
@@ -254,7 +254,7 @@ import geyser.lang.System;
 import geyser.lang.Prompt;
 import geyser.lang.string.concatenate;
 
-// Global prefixes are unnesecary to prevent damn pain-in-the-ahh 'restricted area' errors
+// Global prefixes are unnesessary to prevent damn pain-in-the-ahh 'restricted area' errors
 String gameTitle = "DocItOut";
 
 // Indentation does not matter to the compiler; it is strictly for human beauty
@@ -268,7 +268,7 @@ System.print(status);
 String username = Prompt("Enter surgeon name: ").toLowerCase().replaceAll(' ', '');
 
 // Tuples are default and allowed
-String password = Prompt("Enter secure password: ", maskWith='*', ignore=(' ', '\r', '\n'))
+String password = Prompt("Enter secure password: ", maskWith='*', ignore=(" ", "\r", "\n"));
 
 // ANSI
 System.print("\033[38;2;255;255;0mHello World\033[0m\n");
@@ -278,7 +278,7 @@ System.print("\033[38;2;255;255;0mHello World\033[0m\n");
 2. An existing, declared variable name cannot be re-declared.
 3. Modification of an existing slot must use explicit compound mutation operators (`+=`, `-=`, `*=`, `/=` etc.), reassignment without declaring type again or reassignment with math operators etc..
 4. Slot type must match the value else (TypeError: mismatched types between slot type and value)
-5. Truncation in values are gurranted to not happen unless explicitly told to do so
+5. Truncation in values are guaranted to not happen unless explicitly told to do so
 
 ```java
 int patientPulse = 70;
@@ -319,7 +319,7 @@ if (emergencyLevel.exists() and patientBleeding == true) {
 // Logical text operators ('and', 'or') are used instead of confusing '&&' or '||'
 // Compiler quietly optimizes the redundant semicolons and other semicolons to just a single raw machine code
 for (int i = 0; i < 100; i += 1;) {
-    System.print(cast(i, String);
+    System.print(cast(i, String));
 }
 ```
 
@@ -581,9 +581,9 @@ bool func calculateScoreIfFailElseCreateID(int score) {
 int func nightmare() {
     func collosal() {
         int Haha = 10;
-        return Haha // If Haha wasn't freed, it would be cleared when this function was called, but since it can return, iif it was called, the variable gets released to that scope
+        return Haha; // If Haha wasn't freed, it would be cleared when this function was called, but since it can return, if it was called, the variable gets released to that scope
     }
-    return -1
+    return -1;
 }
 
 comptime class NestedNightmare {
@@ -594,8 +594,7 @@ comptime class NestedNightmare {
 
 // Boilerplate-free classes with explicit constructors
 // Code outside private/public {} are invalid with a 'SyntaxError: cannot decide variable/function/class is public or private'
-// private and public {} defenition is mandatatory, if uneeded, simply keep them empty
-
+// private and public {} definition is mandatory, if unneeded, simply keep them empty
 class Animal {
     private {
         
@@ -660,7 +659,7 @@ Player workerA = new Player("Surgeon", 100);
 // Track 2: Arguments can use explicit field keys in any layout order.
 Player workerB = new Player(health=100, name="Architect");
 
-// Error Gate: Mixing positional and named arguments is confuzing for a programmer so its banned
+// Error Gate: Mixing positional and named arguments is confusing for a programmer so its banned
 Player brokenWorker = new Player("Surgeon", health=100); // ArgumentError: cannot mix named and non-named arguments
 // Is it a hospital!? THREE PLAYERS ARE SURGEONS!!!
 
@@ -672,7 +671,7 @@ System.print(cast(workerA, String)) // Output:-
 // }
 // Type: Class
 
-// Enumeraters
+// Enumerators
 enum TemperatureF {
     HOT = 108;
     NORMAL = 99;
