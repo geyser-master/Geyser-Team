@@ -168,6 +168,17 @@ Dict profile = {
 IO.output(cast(profile["name"], String));
 ```
 
+### Try/Catch block
+```java
+import geyser.lang.IO;
+
+try {
+    error; // Intercepts the error, checks the catch on what its trying to catch, if the erro matches what catch is trying to catch, it skips the entire try block, executes the script in catch and done, else ignores the error
+} catch (NameError as e) { // Assigns a alias to the passen name-error in the try-block, in here I used 'e'
+    IO.output("Error caught: {cast(e, String)}");
+}
+```
+
 ### Comments
 ```java
 // This is a comment, it does nothing
