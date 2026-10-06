@@ -244,10 +244,13 @@ bin binary_num = 0b11111111;
 ```java
 import geyser.lang.file;
 import geyser.lang.System;
-file.make("main.txt"); // Vague names also work also takes some time
+file.make("textfiles", type="dir");
+file.make("textfiles/main.txt", type="file"); // Vague names also work also takes some time
 file.write((f, iq"import geyser.lang.System;System.print("Hi");"), "main.txt") // Invalid file paths are stopped with an "FileError: no such file or directory 'path'"
 System.print(cast(file.read("main.txt", String)));
-file.delete("C:/User/Dell/main.txt"); // Explicit paths also work
+file.delete("C:/User/Dell/textfiles/main.txt"); // Explicit paths also work
+
+
 ```
 
 ### Reading other .gy files gossips and secrets
@@ -384,6 +387,13 @@ bin bin_salad = Random.randomBin(length=24);
 // value param values: any: any
 hex encrypted_string = CryptoHash.encrypt(algorithm="tls", value="TOP SECRET!!!");
 hex hashed_string = CryptoHash.hash(algorithm="sha128", value="HYPER SECRET!!!");
+```
+
+### System and OS'es
+```java
+import geyser.lang.os.windows; // Imports all the OS features of windows
+import geyser.lang.os.linux; // Imports all the OS features of linux
+import geyser.lang.os.unix; // Imports all the OS features of unix
 ```
 
 ### Collections, Arrays, Matrixes & Objects
