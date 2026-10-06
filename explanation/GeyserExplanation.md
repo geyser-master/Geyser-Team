@@ -605,6 +605,7 @@ class Animal {
         int health;
         
         // Constructor executes code right-after class is initialized
+        // Constructor orders is the child with no child of its own is constructed first, then the childs/parent 1 level up, and so on until the main root parent
         constructor Animal(String newName, int newHealth) {
             name = newName;
             health = newHealth;
@@ -617,6 +618,7 @@ class Animal {
         }
 
         // Destructor executes code right-before class gets sent to the shadow-realm
+        // Destructor orders is the child with no child of its own is destroyed first, then the childs/parent 1 level up, and so on until the main root parent, then the entire class tolded to be deleted (.delete()) is reclaimed
         destructor Animal() {
             ptr = null;
         }
