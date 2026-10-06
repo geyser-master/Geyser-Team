@@ -239,7 +239,7 @@ void func calculateEatingTime() {
     IO.output("Calculated dinner time: 3544 seconds");
 }
 
-// If two threads try to modify an address at the exact same time, who was first is allowed to modify, the second has to wait, if both threads reach a data-slot at the exact same time, both are killed causing the thread to again come back from RAM
+// If two threads try to modify an address at the exact same time, who was first is allowed to modify, the second has to wait
 // If a thread encounters a error, it gets immediately destroyed
 Thread workerA = Threading.newThread(task=calculatePizzaArrival, args=(10), daemon=true); // The args argument passes required argument to the functions in a specific order, this argument is optional
 Thread workerB = Threading.newThread(task=calculateEatingTime, daemon=true);
