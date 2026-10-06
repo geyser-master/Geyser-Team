@@ -617,16 +617,57 @@ comptime class NestedNightmare {
     }
 }
 
-// Boilerplate-free classes with automatically mapped constructors
-class Player {
-    String name;
-    int health;
-    void func heal(int amount) {
-        health += amount;
+// Boilerplate-free classes with explicit constructors
+// Code outside private/public {} are invalid with a 'SyntaxError: cannot decide variable/function/class is public or private'
+// private and public {} defenition is mandatatory, if uneeded, simply keep them empty
+
+class Animal {
+    private {
+        
+    }
+
+    public {
+        String name;
+        int health;
+        
+        constructor Animal(String newName, int newHealth) {
+            name = newName;
+            health = newHealth;
+        }
+
+        void func bark() {
+            System.print("Woof!");
+        }
     }
 }
 
-Player myPlayer = new Player("Surgeon", 100);
+class Player inherits Animal {
+    private {
+        String secret;
+    }
+
+    public {
+        int health;
+        String name;
+
+        constructor Player(String newName, int newHealth) {
+            name = newName;
+            health = newHealth;
+        }
+
+        void func heal(int amount) {
+            health += amount;
+        }
+
+        override void func bark() {
+            System.print("Uhh Bark? Im a human, sorry");
+        }
+    }
+}
+
+
+
+Player myPlayer = new Player("Surgeon");
 System.print(cast(myPlayer.health, String));
 myPlayer.heal(100);
 System.print(cast(myPlayer.health, String)); // Testing if it really increased
