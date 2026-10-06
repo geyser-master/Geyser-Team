@@ -37,10 +37,10 @@ Geyser-x86_64-windows /
 ## 1. Terminal commands
 
 ### Downloading something
-Geyser does this by fetching from the net to download the modules via:
+Geyser does this by calling the MSYS2 pacman to fetch the required package:
 
 ```bash
-gpm install vulkan # GPM means Geyser Package Manager
+gpm install vulkan, raylib, opengl, imgui # GPM means Geyser Package Manager
 ```
 
 ### Running a file
@@ -255,15 +255,6 @@ file.delete("C:/User/Dell/main.txt"); // Explicit paths also work
 import c.Users.Dell.main; // its a GY file, for paths, if the cat starts with a root drive name, it automatically starts from it, else defaults to the root ~ on linux, . on windows
 main.Player myPlayer = new Player("Surgeon", 100); // ANOTHER SURGEON???
 myPlayer.heal(100);
-```
-
-
-### Introducing GUI
-Introducing GUI, we added a native Vulkan tool, same Geyser syntax, but original Vulkan personality, its like 'Vulkan syntax to Geyser syntax', exact same strucutre and logic, just different syntax. So devs still need to struggle by the way, its just for manualism so dves can make stunning games of their own.
-
-```java
-import geyser.gui.Vulkan;
-// Vulkan code here..., Since vulkan is already widely known and in here the syntax is just 'geyser-fied(used general geyser syntax instead of C++ style)', visit https://vulkan.org/learn
 ```
 
 ### Code Formatting
