@@ -141,6 +141,8 @@ Variables are raw physical memory slots. They never compile into heavy, tracking
 * `boolean` — Evaluation literals (`true` or `false`).
 * `const` — Makes a variable permanently immutable after initialization.
 * `null` — A data-type for the value 'null'(Truly its a damn null, not sneaky ((void *)0)).
+* `comptime` — A keyword to make a specific variable/function/class etc. evaluated at compile-time
+* `auto` — Decides the passed data-type and generates machine-code based for that-type in compile-time
 
 ---
 ## 4. Syntax & Grammar Guide
@@ -275,8 +277,8 @@ import geyser.lang.string.concatenate;
 String gameTitle = "DocItOut";
 
 // Indentation does not matter to the compiler; it is strictly for human beauty
-     String part1 = "Patient status: ";
-            String part2 = "Stable\n";
+String part1 = "Patient status: ";
+String part2 = "Stable\n";
 String status = part1.concatenate(part2); // The '+' operator is purified strictly for math
 
 System.print(status);
@@ -398,7 +400,8 @@ hex hashed_string = CryptoHash.hash(algorithm="sha128", value="HYPER SECRET!!!")
 ```java
 // Lists use flags to ease human pain and add more features while still keeping the code blazing fast, lists can hold any data type
 // List can only hold a pre-initialized variable OR a raw value
-List<mutable, resizable> inventory = ["Apple", "Banana"];
+// Lists have a default initialization flags of 'mutable' and 'resizable' if explicit <> flags are not passed
+List inventory = ["Apple", "Banana"];
 
 // EXPLICIT INDEX REQUIREMENT RULE:
 // If a list already contains elements, adding an item requires an index target parameter
