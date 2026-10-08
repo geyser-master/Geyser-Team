@@ -20,12 +20,12 @@ set(LLVM_ROOT "${CMAKE_SOURCE_DIR}/targets/${GY_HOST_ARCH}-${GY_HOST_OS}")
 
 add_executable(
         Geyser
-        engine/src/gy.cpp
-        engine/src/gpm.cpp
-        engine/src/gybuild.cpp
-        engine/src/gydb.cpp
-        engine/frontend/lexer.cpp
-        engine/frontend/parser.cpp
+        ../engine/src/gy.cpp
+        ../engine/src/gpm.cpp
+        ../engine/src/gybuild.cpp
+        ../engine/src/gydb.cpp
+        ../engine/frontend/lexer.cpp
+        ../engine/frontend/parser.cpp
 )
 
 target_include_directories(Geyser PRIVATE engine/include)
