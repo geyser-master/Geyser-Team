@@ -18,7 +18,7 @@ Geyser-x86_64-windows /
             gy.exe
             gpm.exe
             gybuild.exe
-            gydb.exel
+            gydb.exe
         include /
             tokens.h
         lib /
@@ -28,7 +28,7 @@ Geyser-x86_64-windows /
                 standard library...
     explanation /
         GeyserExplanation.md
-    targets /
+    platforms /
         x86-64-windows /
             ...
     README.md
@@ -45,9 +45,11 @@ gpm install vulkan, raylib, opengl, imgui # GPM means Geyser Package Manager
 ```
 
 ### Running a file
-Geyser has two options:
-*Path 1* — If you had an IDE, Simply click the run button
-*Path 2* — By terminal, run `gy run "path to your file"`
+Geyser does this by:
+
+```bash
+gy run "path to your file
+```
 
 ### Building a `*.exe` file
 We do this by geyser's `gybuild`, to convert it, run
@@ -57,7 +59,7 @@ gybuild build "path/to/your/file.gy" --output "keep/the/file/at/here.exe" --arch
 
 An example command to convert to a `*.exe`(win) file is
 ```bash
-gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/game.exe" --architecture arm64 --optimize=O0
+gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/my_Game.apk" --architecture arm64 --optimize=O3 # Architecture flag tells what architecture the .exe/.apk etc. should compile to
 ```
 
 The path could significantly vary based on the hardware's OS.
@@ -68,7 +70,7 @@ Sometimes you don't want the old geyser and want the latest geyser in the repo, 
 geyser update
 ```
 
-This asks to close the window, runs a script after the window is closed to execute after 2 seconds to make sure the window is closed, rm -rf's the root geyser-...-version, downloads the latest version in the repo, unzips it in the background, and voila! done
+This asks to close the window, runs a script after the window is closed to execute after 2 seconds to make sure the window is closed, rm -rf's the root geyser-..., downloads the latest version in the repo, unzips it in the background, and voila! done
 
 ---
 ## 2. Core Architectural Pillars
@@ -90,30 +92,18 @@ Geyser outlaws compiler guesswork. Every data type, scope boundary, statement te
 String invalidCombination = (f, r"Path: {user}"); // FormatError: combination of 'f' and 'r' is invalid
 ```
 
-### Existing attributes currently in **`Geyser`**
-* `toLowerCase()`  
-  Makes a string lowercase
-* `toUpperCase()`  
-  Makes a string uppercase
-* `replaceAll(old, new)` 
-  Replaces the old string with the new string
-* `capitalizeFirstLetter()`  
-  Makes a certain string first letter capitalized
-* ~~`lengthOf()/byteLengthOf()/bitLengthOf()`~~  
-  Removed lengthOf feature
-
 ### The "Yeet the GC" Memory Strategy
 The Garbage Collector is permanently banished to eliminate background lag spikes and unpredictable stuttering frames. Geyser utilizes **Automatic Scope-Based Cleanup**:
 * Local data sits flat inside memory stack slots.
 * Constant top-level objects stay active in the root file scope until the execution terminates, at which point the Operating System reclaims the entire layout at EOF (End of File).
 
 ### Introducing 'variable deletion'
-We are introducing manual 'variable deletion' ability, the use of it is to help clearing data to prevent a memory leak, it clears the **pointer** and **data** basically everything, it is used via 'name.delete()'
+We are introducing manual 'variable deletion' ability, the use of it is to help clearing data to prevent a memory leak, it frees the **data** and sets the pointer to null, it is used via 'name.delete()'
 Here is an code example
 
 ```java
 // Compile-Time Eviction
-// When .delete() is called, the variable name is scrubbed from the compiler's symbol table.
+// When .delete() is called, the variable name is scrubbed from the compiler's symbol table and the physical value is freed.
 // Any attempt to use it again in the same scope results in an immediate build error.
 int x = 10;
 x.delete();
@@ -172,10 +162,18 @@ IO.output(cast(profile["name"], String));
 ```java
 import geyser.lang.IO;
 
+// Geyser's `try-catch-else-finally` executes the `try` block sequentially, recording catchable errors without interrupting subsequent statements. After the block finishes, `catch` clauses are processed in source order, with each handler executing for every matching error. The `else` block executes only if no errors were recorded, and `finally` executes once after catch processing. Recoverable syntax errors inside a structurally identifiable `try` block can also be recorded and handled, but if the compiler cannot reliably identify the block's structure, compilation halts with a `SyntaxError`.
+
 try {
-    error; // Intercepts the error, checks the catch on what its trying to catch, if the erro matches what catch is trying to catch, it skips the entire try block, executes the script in catch and done, else ignores the error
-} catch (NameError as e) { // Assigns a alias to the passen name-error in the try-block, in here I used 'e'
-    IO.output("Error caught: {cast(e, String)}");
+    name_error_example; 
+} catch (SyntaxError as e) {
+    IO.output(f"Error caught(SyntaxError): {cast(e, String)}");
+} catch (NameError as e) {
+    IO.output(f"Error caught(NameError): {cast(e, String)}");
+} else {
+    IO.output("Success, No failure");
+} finally {
+    IO.output("Check finished");
 }
 ```
 
@@ -242,13 +240,13 @@ void func calculatePizzaArrival(int BOOB) {
     for (int i = 0; i <= 3; i += 1) {
         Time.wait(1, unit="second");
     }
-    IO.output("Calculated pizza arrival time: 5022 seconds");
+    IO.output("Calculated pizza arrival time: 5022 seconds"); // Note: Forgot to note that IO.output does not automatically add a \n
 }
 void func calculateEatingTime() {
     for (int i = 0; i <= 3; i += 1) {
         Time.wait(1, unit="second");
     }
-    IO.output("Calculated dinner time: 3544 seconds");
+    IO.output("Calculated dinner time: 3544 seconds"); // I may have forgot to add \n's in my code examples so deep apologies from who is reading this
 }
 
 // If two threads try to modify an address at the exact same time, who was first is allowed to modify, the second has to wait
@@ -285,7 +283,7 @@ bin<16> binary_num = 0b11111111; // An optional <N> parameter explicitly specifi
 
 ### Reading other .gy files gossips and secrets
 ```java
-import c.Users.Dell.main; // its a GY file, for paths, if the cat starts with a root drive name, it automatically starts from it, else defaults to the root ~ on linux, . on windows
+import c.Users.Dell.main; // its a GY file, for paths, if the cat(No wait i mean Meow, NO WAIT i mean path) starts with a root drive name, it automatically starts from it, else defaults to the root ~ on linux, . on windows
 main.Player myPlayer = new Player("Surgeon", 100); // ANOTHER SURGEON???
 myPlayer.heal(100);
 ```
