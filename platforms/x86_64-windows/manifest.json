@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "platform": "x86_64-windows",
+  "status": "draft",
+  "llvm": {
+    "version": "22.1.8",
+    "runtime": "bin/libLLVM-22.dll",
+    "import_library": "lib/libLLVM-22.dll.a",
+    "runtime_dependencies": []
+  },
+  "verification": {
+    "tested_on_clean_system": false
+  }
+}
