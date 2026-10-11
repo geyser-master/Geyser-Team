@@ -580,14 +580,14 @@ IO.output(f"Ah! Its fricking {cast(TemperatureF.HOT, String)}!");
 
 Geyser blocks bugs before they can ever execute on hardware by throwing descriptive compile-time errors instantly and smart explicit warnings
 
-> Note: Also during compilation if a warning pops up it throws an e/y/N prompt to continue compilation, e simply means to display all the other remaining warnings, clicking y after e means agreeing to all warnings, if a single N prompt appears, the entire compilation is halted, just y means aggreeing on the current warning continuing to display the rest one by one
+> Note: Also during compilation if a warning pops up it throws an e/y/N prompt to continue compilation, **e** simply means to display all the other remaining warnings, clicking **y** after **e** means agreeing to all warnings, if a single **N** prompt appears, the entire compilation is halted, just **y** means agreeing on the current warning continuing to display the rest one by one
 
 ---
 ## 6. Organizational Project Layout
 
 Development moves in a strictly disciplined pipeline under the command of the Chief Architect:
 * **Team 1 (Compiler Thinkers):** Maps specifications to native hardware logic and handles register layouts within the C/LLVM backend.
-* **Team 2 (Syntax Developers):** Builds the actual C tokenizer, lexer, and parser within CLion to read `.gy` source text and enforce compile-time error gates.
+* **Team 2 (Syntax Developers):** Builds the actual C/C++ tokenizer, lexer, and parser within CLion to read `.gy` source text and enforce compile-time error gates.
 * **Team 3 (Code Breakers):** Aggressively stress-tests the system by writing broken code AND correct to find compiler exploits, racing bugs, or memory leakage flaws to report it to `Team 2`.
 * **Team 4 (Launch & Media):** Manages the official website, syntax highlighters, documentation, and handles public advertisements to drive industry adoption.
 * **Team 5 (OS and CPU archaeological specialists):** Handles advanced cross-platform OS layers mapping and target instructions to ensure native binary efficiency.
