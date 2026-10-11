@@ -8,6 +8,8 @@ ext-build/
 .DS_Store
 Thumbs.db
 *.log
+.gitattributes
+.gitkeep
 
 
 # VS Code C/C++ .gitignore
