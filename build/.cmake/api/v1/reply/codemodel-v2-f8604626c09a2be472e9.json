@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : [],
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f040eec181a89de70dbe.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "4.3"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Geyser",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "geyser_frontend::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-geyser_frontend-Debug-253c3fefb438a71c1778.json",
+					"name" : "geyser_frontend",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "gpm::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gpm-Debug-e29e9b46a522613e1c43.json",
+					"name" : "gpm",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "gy::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gy-Debug-f512ce54338b4d235733.json",
+					"name" : "gy",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "gybuild::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gybuild-Debug-49ce099e1ba5b82a783e.json",
+					"name" : "gybuild",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "gydb::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gydb-Debug-052a3e5949e72e5316d5.json",
+					"name" : "gydb",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/Geyser/build",
+		"source" : "D:/Geyser/config"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 10
+	}
+}

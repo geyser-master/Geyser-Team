@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles\\gybuild.dir\\D_\\Geyser\\engine\\src\\gybuild.cpp.obj",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

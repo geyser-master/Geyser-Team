@@ -1,0 +1,5 @@
+ninja_dyndep_version = 1.0
+build CMakeFiles/geyser_frontend.dir/D_/Geyser/engine/frontend/lexer.cpp.obj: dyndep
+
+build CMakeFiles/geyser_frontend.dir/D_/Geyser/engine/frontend/parser.cpp.obj: dyndep
+

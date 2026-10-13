@@ -1,0 +1,31 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"database-info" : null,
+	"dir-cur-bld" : "D:/Geyser/build",
+	"dir-cur-src" : "D:/Geyser/config",
+	"dir-top-bld" : "D:/Geyser/build",
+	"dir-top-src" : "D:/Geyser/config",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : 
+	[
+		"D:\\Geyser\\config\\..\\engine\\include",
+		"D:\\Geyser\\config\\..\\platforms\\x86_64-windows\\include"
+	],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "D:/Geyser/build/CMakeFiles/gy.dir",
+	"sources" : 
+	{
+		"CMakeFiles/gy.dir/D_/Geyser/engine/src/gy.cpp.obj" : 
+		{
+			"language" : "CXX",
+			"source" : "D:/Geyser/engine/src/gy.cpp"
+		}
+	}
+}

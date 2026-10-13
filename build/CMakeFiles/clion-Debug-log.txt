@@ -1,0 +1,10 @@
+"D:\Program Files\JetBrains\CLion 2026.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/Program Files/JetBrains/CLion 2026.2/bin/ninja/win/x64/ninja.exe" -G Ninja -S D:\Geyser\config -B D:\Geyser\build
+-- Geyser platform directory: D:/Geyser/config/../platforms/x86_64-windows+linux+freebsd+macos_arm64-linux+macos+windows
+-- Geyser platform: x86_64-windows
+-- Geyser manifest schema: 1
+-- Geyser LLVM version: 22.1.8
+-- LLVM runtime found: bin/libLLVM-22.dll
+-- LLVM import library found: lib/libLLVM-22.dll.a
+-- Configuring done (3.1s)
+-- Generating done (0.3s)
+-- Build files have been written to: D:/Geyser/build

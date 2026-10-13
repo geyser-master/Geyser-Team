@@ -1,0 +1,3 @@
+ninja_dyndep_version = 1.0
+build CMakeFiles/gy.dir/D_/Geyser/engine/src/gy.cpp.obj: dyndep
+

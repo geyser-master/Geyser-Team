@@ -1,0 +1,3 @@
+ninja_dyndep_version = 1.0
+build CMakeFiles/gpm.dir/D_/Geyser/engine/src/gpm.cpp.obj: dyndep
+

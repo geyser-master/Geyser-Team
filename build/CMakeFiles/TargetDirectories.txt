@@ -1,0 +1,7 @@
+D:/Geyser/build/CMakeFiles/geyser_frontend.dir
+D:/Geyser/build/CMakeFiles/gy.dir
+D:/Geyser/build/CMakeFiles/gpm.dir
+D:/Geyser/build/CMakeFiles/gybuild.dir
+D:/Geyser/build/CMakeFiles/gydb.dir
+D:/Geyser/build/CMakeFiles/edit_cache.dir
+D:/Geyser/build/CMakeFiles/rebuild_cache.dir

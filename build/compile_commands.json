@@ -1,0 +1,38 @@
+[
+{
+  "directory": "D:/Geyser/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -ID:/Geyser/config/../engine/include -ID:/Geyser/config/../platforms/x86_64-windows/include -g -std=gnu++26 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\geyser_frontend.dir\\D_\\Geyser\\engine\\frontend\\lexer.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\geyser_frontend.dir\\D_\\Geyser\\engine\\frontend\\lexer.cpp.obj -c D:\\Geyser\\engine\\frontend\\lexer.cpp",
+  "file": "D:/Geyser/engine/frontend/lexer.cpp",
+  "output": "D:/Geyser/build/CMakeFiles/geyser_frontend.dir/D_/Geyser/engine/frontend/lexer.cpp.obj"
+},
+{
+  "directory": "D:/Geyser/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -ID:/Geyser/config/../engine/include -ID:/Geyser/config/../platforms/x86_64-windows/include -g -std=gnu++26 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\geyser_frontend.dir\\D_\\Geyser\\engine\\frontend\\parser.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\geyser_frontend.dir\\D_\\Geyser\\engine\\frontend\\parser.cpp.obj -c D:\\Geyser\\engine\\frontend\\parser.cpp",
+  "file": "D:/Geyser/engine/frontend/parser.cpp",
+  "output": "D:/Geyser/build/CMakeFiles/geyser_frontend.dir/D_/Geyser/engine/frontend/parser.cpp.obj"
+},
+{
+  "directory": "D:/Geyser/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -ID:/Geyser/config/../engine/include -ID:/Geyser/config/../platforms/x86_64-windows/include -g -std=gnu++26 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\gy.dir\\D_\\Geyser\\engine\\src\\gy.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\gy.dir\\D_\\Geyser\\engine\\src\\gy.cpp.obj -c D:\\Geyser\\engine\\src\\gy.cpp",
+  "file": "D:/Geyser/engine/src/gy.cpp",
+  "output": "D:/Geyser/build/CMakeFiles/gy.dir/D_/Geyser/engine/src/gy.cpp.obj"
+},
+{
+  "directory": "D:/Geyser/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -ID:/Geyser/config/../engine/include -g -std=gnu++26 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\gpm.dir\\D_\\Geyser\\engine\\src\\gpm.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\gpm.dir\\D_\\Geyser\\engine\\src\\gpm.cpp.obj -c D:\\Geyser\\engine\\src\\gpm.cpp",
+  "file": "D:/Geyser/engine/src/gpm.cpp",
+  "output": "D:/Geyser/build/CMakeFiles/gpm.dir/D_/Geyser/engine/src/gpm.cpp.obj"
+},
+{
+  "directory": "D:/Geyser/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -ID:/Geyser/config/../engine/include -g -std=gnu++26 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\gybuild.dir\\D_\\Geyser\\engine\\src\\gybuild.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\gybuild.dir\\D_\\Geyser\\engine\\src\\gybuild.cpp.obj -c D:\\Geyser\\engine\\src\\gybuild.cpp",
+  "file": "D:/Geyser/engine/src/gybuild.cpp",
+  "output": "D:/Geyser/build/CMakeFiles/gybuild.dir/D_/Geyser/engine/src/gybuild.cpp.obj"
+},
+{
+  "directory": "D:/Geyser/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe -ID:/Geyser/config/../engine/include -g -std=gnu++26 -fdiagnostics-color=always -fmodules-ts -fmodule-mapper=CMakeFiles\\gydb.dir\\D_\\Geyser\\engine\\src\\gydb.cpp.obj.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles\\gydb.dir\\D_\\Geyser\\engine\\src\\gydb.cpp.obj -c D:\\Geyser\\engine\\src\\gydb.cpp",
+  "file": "D:/Geyser/engine/src/gydb.cpp",
+  "output": "D:/Geyser/build/CMakeFiles/gydb.dir/D_/Geyser/engine/src/gydb.cpp.obj"
+}
+]

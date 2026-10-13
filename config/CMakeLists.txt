@@ -29,10 +29,79 @@ else ()
             "Unsupported architecture: ${CMAKE_SYSTEM_PROCESSOR}")
 endif ()
 
-# Locate the platform directory
-set(GY_PLATFORM_DIR
-        "${CMAKE_SOURCE_DIR}/../platforms/${GY_HOST_ARCH}-${GY_HOST_OS}"
+# Locate a shared platform directory using architecture/OS groups.
+set(GY_PLATFORMS_ROOT
+        "${CMAKE_SOURCE_DIR}/../platforms"
 )
+
+file(GLOB GY_PLATFORM_CANDIDATES
+        LIST_DIRECTORIES TRUE
+        "${GY_PLATFORMS_ROOT}/*"
+)
+
+set(GY_PLATFORM_DIR "")
+
+foreach (candidate IN LISTS GY_PLATFORM_CANDIDATES)
+    if (NOT IS_DIRECTORY "${candidate}")
+        continue()
+    endif ()
+
+    get_filename_component(candidate_name "${candidate}" NAME)
+
+    # Find the group belonging to the detected architecture.
+    # Example:
+    # x86_64-windows+linux+freebsd+macos_arm64-linux+macos+windows
+    #
+    # The underscore inside x86_64 is part of the architecture name.
+    # An underscore immediately before another architecture starts
+    # the next architecture group.
+
+    string(REGEX MATCH
+            "(^|_)${GY_HOST_ARCH}-([^_]+)"
+            matched_group
+            "${candidate_name}"
+    )
+
+    if (matched_group STREQUAL "")
+        continue()
+    endif ()
+
+    set(GY_SUPPORTED_OS_GROUP "${CMAKE_MATCH_2}")
+
+    # Convert the plus-separated OS names into a CMake list.
+    string(REPLACE "+"
+            ";"
+            GY_SUPPORTED_OS_LIST
+            "${GY_SUPPORTED_OS_GROUP}"
+    )
+
+    # Does this architecture group include the detected OS?
+    list(FIND GY_SUPPORTED_OS_LIST
+            "${GY_HOST_OS}"
+            GY_OS_INDEX
+    )
+
+    if (NOT GY_OS_INDEX EQUAL -1)
+        if (NOT GY_PLATFORM_DIR STREQUAL "")
+            message(FATAL_ERROR
+                    "Multiple platform directories match "
+                    "${GY_HOST_ARCH}-${GY_HOST_OS}. "
+                    "Please remove the ambiguity."
+            )
+        endif ()
+
+        set(GY_PLATFORM_DIR "${candidate}")
+    endif ()
+endforeach ()
+
+if (GY_PLATFORM_DIR STREQUAL "")
+    message(FATAL_ERROR
+            "No shared platform directory supports "
+            "${GY_HOST_ARCH}-${GY_HOST_OS}."
+    )
+endif ()
+
+message(STATUS "Geyser platform directory: ${GY_PLATFORM_DIR}")
 
 # Load Geyser platform manifest
 set(GY_MANIFEST "${GY_PLATFORM_DIR}/manifest.json")
@@ -140,6 +209,7 @@ message(STATUS "LLVM import library found: ${GY_LLVM_IMPORT_LIBRARY}")
 add_library(geyser_frontend STATIC
         ../engine/frontend/lexer.cpp
         ../engine/frontend/parser.cpp
+        ../engine/include/tokens.hpp
 )
 
 target_include_directories(geyser_frontend PRIVATE

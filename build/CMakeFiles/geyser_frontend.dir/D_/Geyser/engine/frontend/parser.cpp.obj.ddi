@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles\\geyser_frontend.dir\\D_\\Geyser\\engine\\frontend\\parser.cpp.obj",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

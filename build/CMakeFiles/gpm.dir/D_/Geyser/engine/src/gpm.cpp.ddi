@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/gpm.dir/D_/Geyser/engine/src/gpm.cpp.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}
