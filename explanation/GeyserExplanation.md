@@ -29,7 +29,7 @@ Geyser-x86_64-windows /
     explanation /
         GeyserExplanation.md
     platforms /
-        x86-64-windows /
+        x86_64-windows+linux+freebsd+macos_arm64-linux+macos+windows /
             ...
     README.md
 ```
@@ -59,7 +59,7 @@ gybuild build "path/to/your/file.gy" --output "keep/the/file/at/here.exe" --arch
 
 An example command to convert to a `*.exe`(win) file is
 ```bash
-gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/my_Game.apk" --architecture arm64 --optimize=O3 # Architecture flag tells what architecture the .exe/.apk etc. should compile to
+gybuild build "C:/Users/Dell/game.gy" --output "C:/Users/Dell/my_Game.apk" --architecture arm64 --optimize=O3 # Architecture flag tells what architecture the file should compile to
 ```
 
 The path could significantly vary based on the hardware's OS.
