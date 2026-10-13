@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Geyser — The Programming Language</title>
+
+    <meta name="description"
+          content="Geyser is an independent systems programming language focused on explicit syntax, performance, and native compilation.">
+
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#080b14">
+
+    <meta name="google-site-verification" content="Tx_EsreXYXOsF0qZPpLKNlutJAO2d6jic7nCXHoHwOQ" />
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --background: #080b14;
+            --surface: #101726;
+            --text: #f1f5ff;
+            --muted: #a4b0c5;
+            --blue: #58a6ff;
+            --cyan: #54e6ff;
+            --border: rgba(140, 170, 220, 0.17);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--cyan);
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(8, 11, 20, 0.94);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            min-height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            color: var(--text);
+            font-size: 1.4rem;
+            font-weight: 850;
+            letter-spacing: -1px;
+        }
+
+        .brand span {
+            color: var(--cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 0.92rem;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+        }
+
+        .hero {
+            padding: 110px 0 100px;
+            background:
+                radial-gradient(
+                    ellipse at 75% 20%,
+                    rgba(37, 112, 255, 0.19),
+                    transparent 48%
+                ),
+                radial-gradient(
+                    ellipse at 15% 70%,
+                    rgba(43, 222, 255, 0.08),
+                    transparent 40%
+                );
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 13px;
+            border: 1px solid rgba(84, 230, 255, 0.3);
+            border-radius: 999px;
+            color: var(--cyan);
+            background: rgba(84, 230, 255, 0.06);
+            font-size: 0.83rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            max-width: 900px;
+            margin: 25px 0;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.04;
+            letter-spacing: -4px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(100deg, var(--blue), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 750px;
+            color: var(--muted);
+            font-size: 1.15rem;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 32px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 21px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-weight: 750;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: var(--blue);
+            color: #06101f;
+            border-color: var(--blue);
+        }
+
+        .button-primary:hover {
+            background: var(--cyan);
+            color: #06101f;
+        }
+
+        .button-secondary {
+            color: var(--text);
+        }
+
+        section {
+            padding: 82px 0;
+        }
+
+        .section-heading {
+            max-width: 750px;
+            margin-bottom: 38px;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.2;
+            letter-spacing: -1.5px;
+        }
+
+        .section-heading p,
+        .card p,
+        .project-panel p {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            padding: 25px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(84, 230, 255, 0.4);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .code-panel {
+            overflow: hidden;
+            background: #0c1220;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .code-header {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        pre {
+            overflow-x: auto;
+            margin: 0;
+            padding: 25px;
+            color: #cde5ff;
+            font-family: "Cascadia Code", Consolas, monospace;
+            font-size: 0.92rem;
+            line-height: 1.9;
+        }
+
+        .notice {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .project-panel {
+            padding: 35px;
+            background: linear-gradient(
+                120deg,
+                rgba(47, 104, 218, 0.14),
+                rgba(84, 230, 255, 0.04)
+            );
+            border: 1px solid var(--border);
+            border-radius: 22px;
+        }
+
+        .status-label {
+            color: var(--cyan);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        @media (max-width: 760px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 75px 0 65px;
+            }
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            nav {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 18px 0;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container" aria-label="Main navigation">
+            <a class="brand" href="#home">GEYSER<span>.</span></a>
+
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#example">Code</a>
+                <a href="#project">Project</a>
+                <a href="#documentation">Documentation</a>
+                <a href="https://github.com/geyser-master/Geyser-Team">
+                    GitHub
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <span class="eyebrow">
+                    THE GEYSER PROGRAMMING LANGUAGE
+                </span>
+
+                <h1>
+                    Explicit by design.<br>
+                    <span class="gradient-text">
+                        Performance focused.
+                    </span>
+                </h1>
+
+                <p>
+                    Geyser is an independent systems programming language
+                    designed around explicit code, predictable language
+                    rules, and performance-oriented native compilation.
+                    Its ambitions include real-time engines, robotics,
+                    and high-performance simulation.
+                </p>
+
+                <div class="buttons">
+                    <a
+                        class="button button-primary"
+                        href="https://github.com/geyser-master/Geyser-Team"
+                    >
+                        Explore Geyser on GitHub →
+                    </a>
+
+                    <a
+                        class="button button-secondary"
+                        href="https://github.com/geyser-master/Geyser-Team/blob/main/explanation/GeyserExplanation.md"
+                    >
+                        Read the Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>A different approach to systems programming.</h2>
+                    <p>
+                        Geyser emphasizes explicit decisions and
+                        performance-oriented design.
+                    </p>
+                </div>
+
+                <div class="grid">
+                    <article class="card">
+                        <h3>⚡ Performance-oriented</h3>
+                        <p>
+                            Designed with native compilation and demanding
+                            workloads in mind, including real-time engines
+                            and advanced simulation.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>🧭 Explicit by design</h3>
+                        <p>
+                            Clear syntax and deliberate language rules aim
+                            to reduce ambiguity and make program behavior
+                            easier to reason about.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>🧹 No garbage collector</h3>
+                        <p>
+                            Geyser's design rejects background garbage
+                            collection. Resource management and runtime
+                            behavior still depend on the implemented rules.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>🔧 LLVM-based backend</h3>
+                        <p>
+                            The project uses an LLVM-22-based backend
+                            as part of its compiler toolchain.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>🖥️ Platform-focused</h3>
+                        <p>
+                            Geyser's platform architecture is designed
+                            to accommodate different processor
+                            architectures and operating systems as
+                            support is implemented.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>🛠️ Independent project</h3>
+                        <p>
+                            Geyser has its own syntax, compiler goals,
+                            documentation, and development plans.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="example">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Meet the language.</h2>
+                    <p>
+                        Explore Geyser's syntax and language rules
+                        in the official project documentation.
+                    </p>
+                </div>
+
+                <div class="code-panel">
+                    <div class="code-header">example.gy</div>
+
+                    <pre><code>import geyser.lang.IO;
+
+IO.output("Hello from Geyser!");</code></pre>
+                </div>
+
+                <p class="notice">
+                    Check the documentation and current compiler
+                    implementation to confirm feature availability.
+                </p>
+            </div>
+        </section>
+
+        <section id="project">
+            <div class="container">
+                <div class="project-panel">
+                    <p class="status-label">
+                        Independent development project
+                    </p>
+
+                    <h2>Built with a long-term vision.</h2>
+
+                    <p>
+                        Geyser is being developed with ambitions in
+                        systems programming, performance-sensitive
+                        applications, robotics, and simulation.
+                        Its implementation and platform support continue
+                        to evolve.
+                    </p>
+
+                    <p>
+                        Explore the repository for the source tree,
+                        compiler components, design notes, and updates.
+                    </p>
+
+                    <a
+                        class="button button-primary"
+                        href="https://github.com/geyser-master/Geyser-Team"
+                    >
+                        View the Repository →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="documentation">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Learn about Geyser.</h2>
+                    <p>
+                        Read the project explanation for language
+                        philosophy, syntax, compiler architecture,
+                        toolchain plans, and platform organization.
+                    </p>
+                </div>
+
+                <div class="buttons">
+                    <a
+                        class="button button-primary"
+                        href="https://github.com/geyser-master/Geyser-Team/blob/main/explanation/GeyserExplanation.md"
+                    >
+                        Open Geyser Documentation →
+                    </a>
+
+                    <a
+                        class="button button-secondary"
+                        href="https://github.com/geyser-master/Geyser-Team"
+                    >
+                        Browse Source on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <span>© 2026 Geyser Programming Language Project</span>
+            <span>
+                An independent project.
+                Not affiliated with GeyserMC.
+            </span>
+        </div>
+    </footer>
+</body>
+</html>
